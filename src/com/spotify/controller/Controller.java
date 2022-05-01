@@ -34,7 +34,8 @@ public class Controller {
     }
 
     public void abrirTelaCadastro() {
-        JFrame cadastro = factory.createView("cadastro", this);
+        JFrame cadastro = factory.createView("cadastro", controller);
+
     }
 
 }
