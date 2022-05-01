@@ -13,12 +13,28 @@ import javax.swing.JFrame;
  * @author Voronhuk
  */
 public class Controller {
+
+    Controller controller;
+    ViewFactory factory = new ViewFactory();
+
     public static void main(String[] args) {
-        ViewFactory factory = new ViewFactory();
+
         Controller controller = new Controller();
-        
-       JFrame login = factory.createView("login", controller);
-       
+        controller.iniciarApp();
+
     }
-    
+
+    public void iniciarApp() {
+        this.controller = new Controller();
+        controller.abrirTelaLogin();
+    }
+
+    public void abrirTelaLogin() {
+        JFrame login = factory.createView("login", controller);
+    }
+
+    public void abrirTelaCadastro() {
+        JFrame cadastro = factory.createView("cadastro", this);
+    }
+
 }
