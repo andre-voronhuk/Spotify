@@ -11,11 +11,14 @@ import com.spotify.controller.Controller;
  * @author Voronhuk
  */
 public class TelaLogin extends javax.swing.JFrame {
+    
+    Controller controller;
 
     /**
      * Creates new form Login
      */
     public TelaLogin(Controller controller) {
+        this.controller = controller;
         initComponents();
     }
 
@@ -42,12 +45,22 @@ public class TelaLogin extends javax.swing.JFrame {
         setForeground(java.awt.Color.gray);
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Usuario");
 
         jLabel2.setText("Senha");
 
         btnCadastro.setText("Cadastrar");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +99,14 @@ public class TelaLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        new Controller().abrirTelaCadastro();
+    }//GEN-LAST:event_btnCadastroActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
