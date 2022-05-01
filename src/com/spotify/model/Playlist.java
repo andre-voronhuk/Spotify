@@ -42,14 +42,4 @@ public class Playlist {
         return dono;
     }
 
-    public boolean adicionarMusica(Musica musica) {
-        return new PlaylistDAO().adicionarMusica(this, musica);
-
-    }
-
-    public boolean removerMusica(Musica musica) {
-        return new PlaylistDAO().removerMusica(this, musica);
-
-    }
-
 }
