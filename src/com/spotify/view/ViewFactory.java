@@ -20,7 +20,7 @@ public class ViewFactory {
     public JFrame createView(String name, Controller controller) {
         this.controller = controller;
         JFrame frame;
-        System.out.println(name);
+
         switch (name) {
             case "login":
                 frame = new TelaLogin(controller);
@@ -29,11 +29,11 @@ public class ViewFactory {
             case "home":
                 frame = new TelaLogin(controller);
                 break;
-            
+
             case "cadastro":
-                
+
                 frame = new TelaCadastro(controller);
-               
+
                 break;
 
             default:
@@ -48,5 +48,7 @@ public class ViewFactory {
 
         return frame;
     }
+
+   
 
 }
