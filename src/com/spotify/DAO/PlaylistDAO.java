@@ -9,6 +9,7 @@ import com.spotify.model.Playlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,8 +17,8 @@ import java.sql.ResultSet;
  */
 public class PlaylistDAO {
 
-    private Conexao con = new Conexao();
-    private Connection conexao = con.conectar();
+    private final Conexao con = new Conexao();
+    private final Connection conexao = con.conectar();
 
     public boolean adicionarMusica(Playlist playlist, Musica musica) {
 
@@ -26,7 +27,8 @@ public class PlaylistDAO {
 
         try {
 
-            PreparedStatement ps = conexao.prepareStatement(query);
+            PreparedStatement ps;
+            ps = conexao.prepareStatement(query);
             ps.setInt(1, musica.getId());
             ps.setInt(2, playlist.getId());
 
@@ -35,7 +37,7 @@ public class PlaylistDAO {
             ps.close();
 
             return result;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("ERRO playlistDAO: " + e);
             return false;
         }
@@ -56,7 +58,7 @@ public class PlaylistDAO {
 
             ResultSet dados = ps.executeQuery();
             while (dados.next()) {
-                
+
                 query = "DELETE FROM playlist_musica WHERE id = ?";
                 ps = conexao.prepareStatement(query);
                 ps.setInt(1, dados.getInt("id"));

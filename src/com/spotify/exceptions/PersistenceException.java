@@ -4,14 +4,17 @@
  */
 package com.spotify.exceptions;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Voronhuk
  */
 public class PersistenceException extends Exception {
-
+    
     public PersistenceException(String mensagem) {
         super(mensagem);
+        JOptionPane.showMessageDialog(null, mensagem);
     }
-
+    
 }
