@@ -16,13 +16,7 @@ public class Controller {
 
     Controller controller;
     ViewFactory factory = new ViewFactory();
-    static JFrame login;
-    static JFrame cadastro;
 
-    /**
-     * as variaveis estao como static para que exista somente uma instancia
-     * rodando dentro do controller
-     */
     public static void main(String[] args) {
 
         Controller controller = new Controller();
@@ -32,17 +26,17 @@ public class Controller {
 
     public void iniciarApp() {
         this.controller = new Controller();
-        abrirTelaLogin();
+        controller.abrirTelaLogin();
     }
 
     public void abrirTelaLogin() {
-        this.login = factory.createView("login", this);
-
+        JFrame login = factory.createView("login", controller);
     }
 
     public void abrirTelaCadastro() {
-        cadastro = factory.createView("cadastro", this);
-        login.dispose();
+        JFrame cadastro = factory.createView("cadastro", controller);
+     
+
     }
 
 }

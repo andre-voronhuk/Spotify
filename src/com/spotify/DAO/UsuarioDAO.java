@@ -4,6 +4,7 @@
  */
 package com.spotify.DAO;
 
+import com.spotify.DAO.Interfaces.IUsuarioDAO;
 import com.spotify.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,19 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import others.FuncaoHash;
 
 /**
  *
  * @author Voronhuk
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO {
 
-    private Conexao con = new Conexao();
-    private Connection conexao = con.conectar();
+    private final Conexao con = new Conexao();
+    private final Connection conexao = con.conectar();
 
+    @Override
     public boolean criarUsuario(Usuario usuario) {
         String query = "INSERT INTO usuario (nome,funcao,login, senha) VALUES (?,?,?,?)";
 
@@ -50,6 +50,7 @@ public class UsuarioDAO {
 
     }
 
+    @Override
     public List<Usuario> buscarUsuarios() {
 
         String query = "SELECT id, nome,funcao,login, senha FROM usuario";
@@ -61,7 +62,7 @@ public class UsuarioDAO {
 
             while (dados.next()) {
                 Usuario u = new Usuario();
-                
+
                 u.setId(dados.getInt(1));
                 u.setNome(dados.getString(2));
                 u.setFuncao(dados.getBoolean(3));
@@ -85,12 +86,12 @@ public class UsuarioDAO {
         try {
 
             PreparedStatement ps = conexao.prepareStatement(query);
-            
+
             ps.setInt(1, id);
             ResultSet dados = ps.executeQuery();
 
             if (dados.next()) {
-                
+
                 Usuario u = new Usuario();
                 u.setNome(dados.getString(1));
                 u.setFuncao(dados.getBoolean(2));
@@ -122,10 +123,12 @@ public class UsuarioDAO {
 
     }
 
+    @Override
     public Usuario fazerLogin(String login, String senha) {
         return null;
     }
 
+    @Override
     public boolean alterarSenha(String senhaAtual, String senhaNova) {
 
         return false;
