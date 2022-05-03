@@ -20,6 +20,24 @@ public class PlaylistDAO {
     private final Conexao con = new Conexao();
     private final Connection conexao = con.conectar();
 
+    public boolean criarPlaylist(Playlist playlist, int dono_id) {
+
+        String query = "INSERT INTO playlist (nome,dono_id) VALUES (?,?)";
+
+        try {
+
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, playlist.getNome());
+            ps.setInt(2, dono_id);
+            boolean result = ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("ERRO playlist: " + e);
+            return false;
+        }
+    }
+
     public boolean adicionarMusica(Playlist playlist, Musica musica) {
 
         //adicionar id da playlist e id da musica na tabela playlist_musica
