@@ -181,20 +181,18 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     }
 
-    @Override
-    public boolean alterarSenha(String login, String senhaAtual, String senhaNova) {
-        String query = "SELECT id FROM usuario WHERE login = ? AND senha = ?";
+    public boolean alterarSenha(String login, String senhaNova) {
+        String query = "SELECT id FROM usuario WHERE login = ?";
         boolean logado = false;
         ResultSet result = null;
         int id = 0;
-        senhaAtual = FuncaoHash.gerarHash(senhaAtual);
-        senhaNova = FuncaoHash.gerarHash(senhaNova);
 
+        senhaNova = FuncaoHash.gerarHash(senhaNova);
         try {
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, login);
-            ps.setString(2, senhaAtual);
             result = ps.executeQuery();
+
             if (result.next()) {
                 logado = true;
                 id = result.getInt(1);
