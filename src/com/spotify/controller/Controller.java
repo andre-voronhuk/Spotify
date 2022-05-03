@@ -16,6 +16,8 @@ public class Controller {
 
     Controller controller;
     ViewFactory factory = new ViewFactory();
+    static JFrame login;
+    static JFrame cadastro;
 
     public static void main(String[] args) {
 
@@ -30,12 +32,11 @@ public class Controller {
     }
 
     public void abrirTelaLogin() {
-        JFrame login = factory.createView("login", controller);
+        login = factory.createView("login", controller);
     }
 
     public void abrirTelaCadastro() {
-        JFrame cadastro = factory.createView("cadastro", controller);
-     
+        cadastro = factory.createView("cadastro", controller);
 
     }
 
