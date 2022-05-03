@@ -4,25 +4,20 @@
  */
 package com.spotify.model;
 
-import com.spotify.DAO.PlaylistDAO;
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  *
  * @author Voronhuk
  */
 public class Playlist {
 
-    private int id;
-    private String nome;
-    private List musicas;
-    private Usuario dono;
+    private final int id;
+    private final String nome;
+    private final Usuario dono;
 
     public Playlist(int id, String nome, Usuario dono) {
         this.id = id;
         this.nome = nome;
-        this.musicas = new ArrayList<Musica>();
+
         this.dono = dono;
     }
 
@@ -34,22 +29,8 @@ public class Playlist {
         return nome;
     }
 
-    public List getMusicas() {
-        return musicas;
-    }
-
     public Usuario getDono() {
         return dono;
-    }
-
-    public boolean adicionarMusica(Musica musica) {
-        return new PlaylistDAO().adicionarMusica(this, musica);
-
-    }
-
-    public boolean removerMusica(Musica musica) {
-        return new PlaylistDAO().removerMusica(this, musica);
-
     }
 
 }

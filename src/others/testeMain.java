@@ -23,25 +23,19 @@ public class testeMain {
 //        Albun albun2 = new Albun(0, "Black Sabbath 2009 Remaster", "Black Sabbath");
 //        dadosAlbun.criarAlbun(albun);
 //        dadosAlbun.criarAlbun(albun2);
-//
-//        Usuario user = new Usuario(0, "Joao Teste", false, "jteste", "2220");
+          UsuarioDAO usuarioDao = new UsuarioDAO();
 //        usuarioDao.criarUsuario(user);
-
-        UsuarioDAO usuarioDao = new UsuarioDAO();
-
-        usuarioDao.excluirUsuario(2);
-        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
-
-        if (userBuscar == null) {
-            System.out.println("Sem registros");
-
-        } else {
-            for (Usuario usuario : userBuscar) {
-                System.out.println(usuario.getNome());
-            }
-
-        }
-
+//        usuarioDao.excluirUsuario(2);
+//        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
+         Usuario user = new Usuario(0, "Andre Voronhuk", true, "teste", "");
+         
+          if ( usuarioDao.criarUsuario(user) ) {
+              System.out.println("Usuario criado");
+            
+        }else{
+              System.out.println("Usuario nao criado");
+          }
+//        boolean resultado = usuarioDao.alterarSenha("root", "root", "root");
+//        System.out.println(resultado);
     }
-
 }

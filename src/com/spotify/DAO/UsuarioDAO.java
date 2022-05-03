@@ -4,6 +4,7 @@
  */
 package com.spotify.DAO;
 
+import com.spotify.DAO.Interfaces.IUsuarioDAO;
 import com.spotify.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,45 +12,53 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import others.FuncaoHash;
 
 /**
  *
  * @author Voronhuk
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO {
 
-    private Conexao con = new Conexao();
-    private Connection conexao = con.conectar();
+    private final Conexao con = new Conexao();
+    private final Connection conexao = con.conectar();
 
+    @Override
     public boolean criarUsuario(Usuario usuario) {
         String query = "INSERT INTO usuario (nome,funcao,login, senha) VALUES (?,?,?,?)";
-
+        if (usuario.getSenha().length() < 4) {
+            // Adicionar verificação
+        }
         String senha = FuncaoHash.gerarHash(usuario.getSenha());// cria hash com salt
 
-        try {
+        if (buscarUsuarios(usuario.getLogin()) == null) {
 
-            PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, usuario.getNome());
-            ps.setBoolean(2, usuario.getFuncao());
-            ps.setString(3, usuario.getLogin());
-            ps.setString(4, senha);
+            try {
 
-            boolean result = ps.execute();
+                PreparedStatement ps = conexao.prepareStatement(query);
+                ps.setString(1, usuario.getNome());
+                ps.setBoolean(2, usuario.getFuncao());
+                ps.setString(3, usuario.getLogin());
+                ps.setString(4, senha);
 
-            ps.close();
+                boolean result = ps.execute();
 
-            return result;
+                ps.close();
 
-        } catch (Exception e) {
-            System.out.println("ERRO AlbunDAO: " + e);
+                return true;
+
+            } catch (Exception e) {
+                System.out.println("ERRO AlbunDAO: " + e);
+                return false;
+            }
+        } else {
+            System.out.println(usuario.getLogin() + " Ja existe");
             return false;
         }
 
     }
 
+    @Override
     public List<Usuario> buscarUsuarios() {
 
         String query = "SELECT id, nome,funcao,login, senha FROM usuario";
@@ -61,7 +70,7 @@ public class UsuarioDAO {
 
             while (dados.next()) {
                 Usuario u = new Usuario();
-                
+
                 u.setId(dados.getInt(1));
                 u.setNome(dados.getString(2));
                 u.setFuncao(dados.getBoolean(3));
@@ -85,12 +94,12 @@ public class UsuarioDAO {
         try {
 
             PreparedStatement ps = conexao.prepareStatement(query);
-            
+
             ps.setInt(1, id);
             ResultSet dados = ps.executeQuery();
 
             if (dados.next()) {
-                
+
                 Usuario u = new Usuario();
                 u.setNome(dados.getString(1));
                 u.setFuncao(dados.getBoolean(2));
@@ -104,7 +113,37 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             System.out.println("ERRO AO RECUPERAR:" + e);
         }
-        System.out.println("VAZIO");
+
+        return null;
+    }
+
+    public Usuario buscarUsuarios(String login) {
+
+        String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
+
+        try {
+
+            PreparedStatement ps = conexao.prepareStatement(query);
+
+            ps.setString(1, login);
+            ResultSet dados = ps.executeQuery();
+
+            if (dados.next()) {
+
+                Usuario u = new Usuario();
+                u.setNome(dados.getString(1));
+                u.setFuncao(dados.getBoolean(2));
+                u.setLogin(dados.getString(3));
+                u.setSenha(dados.getString(4));
+                return u;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERRO AO RECUPERAR:" + e);
+        }
+
         return null;
     }
 
@@ -122,12 +161,68 @@ public class UsuarioDAO {
 
     }
 
-    public Usuario fazerLogin(String login, String senha) {
-        return null;
+    @Override
+    public boolean fazerLogin(String login, String senha) {
+        String query = "SELECT id FROM usuario WHERE login = ? AND senha = ?";
+
+        senha = FuncaoHash.gerarHash(senha);
+
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, login);
+            ps.setString(2, senha);
+            ResultSet result = ps.executeQuery();
+            return result.next();
+
+        } catch (SQLException ex) {
+            System.out.println("Exception Login:" + ex);
+            return false;
+        }
+
     }
 
-    public boolean alterarSenha(String senhaAtual, String senhaNova) {
+    public boolean alterarSenha(String login, String senhaNova) {
+        String query = "SELECT id FROM usuario WHERE login = ?";
+        boolean logado = false;
+        ResultSet result = null;
+        int id = 0;
 
+        senhaNova = FuncaoHash.gerarHash(senhaNova);
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, login);
+            result = ps.executeQuery();
+
+            if (result.next()) {
+                logado = true;
+                id = result.getInt(1);
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Exception Alterar senha LOGIN:" + ex);
+
+        }
+        if (logado) {
+            query = "UPDATE usuario SET senha=? WHERE id =?";
+            try {
+                PreparedStatement ps = conexao.prepareStatement(query);
+                ps.setString(1, senhaNova);
+                ps.setInt(2, id);
+                boolean resultado = ps.execute();
+
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("SQL erro ao alterar senha");
+                return false;
+            }
+
+        }
         return false;
+
     }
+
 }
