@@ -31,14 +31,7 @@ public class testeMain {
         //   usuarioDao.criarUsuario(user);
         UsuarioDAO usuarioDao = new UsuarioDAO();
 
-        boolean resultado = usuarioDao.fazerLogin("root", "root");
-        
-        if (!resultado) {
-            System.out.println("errou");
-        } else {
-
-            System.out.println(resultado);
-        }
-
+//        boolean resultado = usuarioDao.alterarSenha("root", "root", "root");
+//        System.out.println(resultado);
     }
 }

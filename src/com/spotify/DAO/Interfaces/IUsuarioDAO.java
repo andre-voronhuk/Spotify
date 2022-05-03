@@ -17,7 +17,7 @@ public interface IUsuarioDAO {
 
     public List<Usuario> buscarUsuarios();
 
-    public boolean alterarSenha(String senhaAtual, String senhaNova);
+    public boolean alterarSenha(String login, String senhaAtual, String senhaNova);
 
     public boolean fazerLogin(String login, String senha);
 

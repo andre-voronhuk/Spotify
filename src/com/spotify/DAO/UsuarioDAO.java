@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import others.FuncaoHash;
 
 /**
@@ -125,12 +127,68 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public boolean fazerLogin(String login, String senha) {
-        return false;
+        String query = "SELECT id FROM usuario WHERE login = ? AND senha = ?";
+
+        senha = FuncaoHash.gerarHash(senha);
+
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, login);
+            ps.setString(2, senha);
+            ResultSet result = ps.executeQuery();
+            return result.next();
+
+        } catch (SQLException ex) {
+            System.out.println("Exception Login:" + ex);
+            return false;
+        }
+
     }
 
     @Override
-    public boolean alterarSenha(String senhaAtual, String senhaNova) {
+    public boolean alterarSenha(String login, String senhaAtual, String senhaNova) {
+        String query = "SELECT id FROM usuario WHERE login = ? AND senha = ?";
+        boolean logado = false;
+        ResultSet result = null;
+        int id = 0;
+        senhaAtual = FuncaoHash.gerarHash(senhaAtual);
+        senhaNova = FuncaoHash.gerarHash(senhaNova);
 
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, login);
+            ps.setString(2, senhaAtual);
+            result = ps.executeQuery();
+            if (result.next()) {
+                logado = true;
+                id = result.getInt(1);
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Exception Alterar senha LOGIN:" + ex);
+
+        }
+        if (logado) {
+            query = "UPDATE usuario SET senha=? WHERE id =?";
+            try {
+                PreparedStatement ps = conexao.prepareStatement(query);
+                ps.setString(1, senhaNova);
+                ps.setInt(2, id);
+                boolean resultado = ps.execute();
+
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("SQL erro ao alterar senha");
+                return false;
+            }
+
+        }
         return false;
+
     }
+
 }
