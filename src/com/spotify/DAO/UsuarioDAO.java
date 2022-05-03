@@ -28,25 +28,33 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public boolean criarUsuario(Usuario usuario) {
         String query = "INSERT INTO usuario (nome,funcao,login, senha) VALUES (?,?,?,?)";
-
+        if (usuario.getSenha().length() < 4) {
+            // Adicionar verificação
+        }
         String senha = FuncaoHash.gerarHash(usuario.getSenha());// cria hash com salt
 
-        try {
+        if (buscarUsuarios(usuario.getLogin()) == null) {
 
-            PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, usuario.getNome());
-            ps.setBoolean(2, usuario.getFuncao());
-            ps.setString(3, usuario.getLogin());
-            ps.setString(4, senha);
+            try {
 
-            boolean result = ps.execute();
+                PreparedStatement ps = conexao.prepareStatement(query);
+                ps.setString(1, usuario.getNome());
+                ps.setBoolean(2, usuario.getFuncao());
+                ps.setString(3, usuario.getLogin());
+                ps.setString(4, senha);
 
-            ps.close();
+                boolean result = ps.execute();
 
-            return result;
+                ps.close();
 
-        } catch (Exception e) {
-            System.out.println("ERRO AlbunDAO: " + e);
+                return true;
+
+            } catch (Exception e) {
+                System.out.println("ERRO AlbunDAO: " + e);
+                return false;
+            }
+        } else {
+            System.out.println(usuario.getLogin() + " Ja existe");
             return false;
         }
 
@@ -107,7 +115,37 @@ public class UsuarioDAO implements IUsuarioDAO {
         } catch (SQLException e) {
             System.out.println("ERRO AO RECUPERAR:" + e);
         }
-        System.out.println("VAZIO");
+
+        return null;
+    }
+
+    public Usuario buscarUsuarios(String login) {
+
+        String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
+
+        try {
+
+            PreparedStatement ps = conexao.prepareStatement(query);
+
+            ps.setString(1, login);
+            ResultSet dados = ps.executeQuery();
+
+            if (dados.next()) {
+
+                Usuario u = new Usuario();
+                u.setNome(dados.getString(1));
+                u.setFuncao(dados.getBoolean(2));
+                u.setLogin(dados.getString(3));
+                u.setSenha(dados.getString(4));
+                return u;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERRO AO RECUPERAR:" + e);
+        }
+
         return null;
     }
 
