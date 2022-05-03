@@ -24,24 +24,21 @@ public class testeMain {
 //        dadosAlbun.criarAlbun(albun);
 //        dadosAlbun.criarAlbun(albun2);
 //
-//        Usuario user = new Usuario(0, "Joao Teste", false, "jteste", "2220");
 //        usuarioDao.criarUsuario(user);
-
+//        usuarioDao.excluirUsuario(2);
+//        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
+        //  Usuario user = new Usuario(0, "Conta Admin", true, "root", "root");
+        //   usuarioDao.criarUsuario(user);
         UsuarioDAO usuarioDao = new UsuarioDAO();
 
-        usuarioDao.excluirUsuario(2);
-        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
-
-        if (userBuscar == null) {
-            System.out.println("Sem registros");
-
+        boolean resultado = usuarioDao.fazerLogin("root", "root");
+        
+        if (!resultado) {
+            System.out.println("errou");
         } else {
-            for (Usuario usuario : userBuscar) {
-                System.out.println(usuario.getNome());
-            }
 
+            System.out.println(resultado);
         }
 
     }
-
 }

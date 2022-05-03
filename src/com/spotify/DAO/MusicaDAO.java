@@ -4,7 +4,6 @@
  */
 package com.spotify.DAO;
 
-import com.spotify.exceptions.PersistenceException;
 import com.spotify.model.Musica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +15,8 @@ import java.sql.SQLException;
  */
 public class MusicaDAO {
 
-    private final Conexao con = new Conexao();
-    private final Connection conexao = con.conectar();
+    private Conexao con = new Conexao();
+    private Connection conexao = con.conectar();
 
     public boolean criarMusica(Musica musica) {
         String query = "INSERT INTO musica (nome,artista,caminho, estilo) VALUES (?,?,?,?)";
@@ -43,19 +42,21 @@ public class MusicaDAO {
 
     }
 
-    public boolean excluirMusica(int id) throws PersistenceException {
+    public boolean excluirMusica(int id) {
         String query = "DELETE FROM musica WHERE id = ?;";
         try {
-            PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setInt(1, id);
-            boolean result = ps.execute();
-            ps.close();
+            boolean result;
+            try ( PreparedStatement ps = conexao.prepareStatement(query)) {
+                ps.setInt(1, id);
+                result = ps.execute();
+            }
             return result;
 
         } catch (SQLException e) {
 
-            throw new PersistenceException("erro ao excluir musica");
+            System.out.println("Erro musica" + e);
 
         }
+        return false;
     }
 }

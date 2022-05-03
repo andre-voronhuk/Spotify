@@ -4,7 +4,6 @@
  */
 package com.spotify.DAO.Interfaces;
 
-import com.spotify.exceptions.PersistenceException;
 import com.spotify.model.Usuario;
 import java.util.List;
 
@@ -14,12 +13,12 @@ import java.util.List;
  */
 public interface IUsuarioDAO {
 
-    public boolean criarUsuario(Usuario usuario) throws PersistenceException;
+    public boolean criarUsuario(Usuario usuario);
 
-    public List<Usuario> buscarUsuarios() throws PersistenceException;
+    public List<Usuario> buscarUsuarios();
 
-    public boolean alterarSenha(String senhaAtual, String senhaNova) throws PersistenceException;
+    public boolean alterarSenha(String senhaAtual, String senhaNova);
 
-    public Usuario fazerLogin(String login, String senha) throws PersistenceException;
+    public boolean fazerLogin(String login, String senha);
 
 }

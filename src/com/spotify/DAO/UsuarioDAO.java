@@ -124,8 +124,8 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario fazerLogin(String login, String senha) {
-        return null;
+    public boolean fazerLogin(String login, String senha) {
+        return false;
     }
 
     @Override

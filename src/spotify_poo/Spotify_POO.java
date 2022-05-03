@@ -4,6 +4,9 @@
  */
 package spotify_poo;
 
+import com.spotify.DAO.Conexao;
+import java.sql.Connection;
+
 /**
  *
  * @author Voronhuk
@@ -15,6 +18,20 @@ public class Spotify_POO {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
+        Conexao con = new Conexao();
+      
+            Connection conexao = con.conectar();
+          
+
+            if (conexao == null) {
+                System.out.println("Nao conectou");
+            } else {
+                System.out.println("Conectou");
+
+            }
+
+        
     }
-    
+
 }
