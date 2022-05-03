@@ -7,6 +7,7 @@ package com.spotify.DAO;
 import com.spotify.model.Musica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -44,14 +45,18 @@ public class MusicaDAO {
     public boolean excluirMusica(int id) {
         String query = "DELETE FROM musica WHERE id = ?;";
         try {
-            PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setInt(1, id);
-            boolean result = ps.execute();
-            ps.close();
+            boolean result;
+            try ( PreparedStatement ps = conexao.prepareStatement(query)) {
+                ps.setInt(1, id);
+                result = ps.execute();
+            }
             return result;
-        } catch (Exception e) {
-            System.out.println("ERRO ao excluir musica: " + e);
-            return false;
+
+        } catch (SQLException e) {
+
+            System.out.println("Erro musica" + e);
+
         }
+        return false;
     }
 }
