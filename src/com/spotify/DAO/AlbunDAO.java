@@ -3,7 +3,6 @@ package com.spotify.DAO;
 import com.spotify.model.Albun;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 /**
  *
@@ -56,4 +55,4 @@ public class AlbunDAO {
         }
 
     }
-} 
+}

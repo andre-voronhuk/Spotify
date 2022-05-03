@@ -59,4 +59,9 @@ public class MusicaDAO {
         }
         return false;
     }
+
+    public boolean buscarMusica(int id) {
+
+        return false;
+    }
 }
