@@ -32,9 +32,11 @@ public class ViewFactory {
                 break;
 
             case "cadastro":
-
                 frame = new TelaCadastro(controller);
-
+                break;
+            
+            case "senha":
+                frame = new TelaAlterarSenha(controller);
                 break;
 
             default:

@@ -4,6 +4,7 @@
  */
 package com.spotify.controller;
 
+import com.spotify.view.TelaAlterarSenha;
 import com.spotify.view.TelaCadastro;
 import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
@@ -20,6 +21,7 @@ public class Controller {
     ViewFactory factory = new ViewFactory();
     static JFrame telaLogin;
     JFrame telaCadastro;
+    JFrame telaAlterarSenha;
     JFrame telaAnterior;
 
     public static void main(String[] args) {
@@ -45,8 +47,13 @@ public class Controller {
         telaCadastro = factory.createView("cadastro", controller);
         telaCadastro.setVisible(true);
         telaLogin.setVisible(false);
-        System.out.println("Abriu");
+    }
 
+    public void abrirTelaAlterarSenha() {
+        telaAlterarSenha = new TelaAlterarSenha(controller);
+        telaAlterarSenha = factory.createView("senha", controller);
+        telaAlterarSenha.setVisible(true);
+        telaLogin.setVisible(false);
     }
 
 }
