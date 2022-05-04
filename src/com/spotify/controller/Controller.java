@@ -4,6 +4,8 @@
  */
 package com.spotify.controller;
 
+import com.spotify.view.TelaCadastro;
+import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -16,6 +18,9 @@ public class Controller {
 
     Controller controller;
     ViewFactory factory = new ViewFactory();
+    static JFrame telaLogin;
+    JFrame telaCadastro;
+    JFrame telaAnterior;
 
     public static void main(String[] args) {
 
@@ -30,12 +35,17 @@ public class Controller {
     }
 
     public void abrirTelaLogin() {
-        JFrame login = factory.createView("login", controller);
+        telaLogin = new TelaLogin(controller);
+        telaLogin = factory.createView("login", controller);
+        telaLogin.setVisible(true);
     }
 
     public void abrirTelaCadastro() {
-        JFrame cadastro = factory.createView("cadastro", controller);
-     
+        telaCadastro = new TelaCadastro(controller);
+        telaCadastro = factory.createView("cadastro", controller);
+        telaCadastro.setVisible(true);
+        telaLogin.setVisible(false);
+        System.out.println("Abriu");
 
     }
 
