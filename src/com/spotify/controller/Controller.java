@@ -19,7 +19,7 @@ public class Controller {
 
     Controller controller;
     ViewFactory factory = new ViewFactory();
-    static JFrame telaLogin;
+    JFrame telaLogin;
     JFrame telaCadastro;
     JFrame telaAlterarSenha;
     JFrame telaAnterior;
@@ -27,12 +27,12 @@ public class Controller {
     public static void main(String[] args) {
 
         Controller controller = new Controller();
-        controller.iniciarApp();
+        controller.iniciarApp(controller);
 
     }
 
-    public void iniciarApp() {
-        this.controller = new Controller();
+    public void iniciarApp(Controller controller) {
+        this.controller = controller;
         controller.abrirTelaLogin();
     }
 
@@ -54,6 +54,12 @@ public class Controller {
         telaAlterarSenha = factory.createView("senha", controller);
         telaAlterarSenha.setVisible(true);
         telaLogin.setVisible(false);
+    }
+
+    public void abrirTela(JFrame telaAtual, String nomeTela) {
+
+        JFrame nova = factory.createView(nomeTela, controller);
+        telaAtual.dispose();
     }
 
 }
