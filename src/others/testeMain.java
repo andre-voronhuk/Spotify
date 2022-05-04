@@ -26,20 +26,24 @@ public class testeMain {
 //        dadosAlbun.criarAlbun(albun);
 //        dadosAlbun.criarAlbun(albun2);
         UsuarioDAO usuarioDao = new UsuarioDAO();
-//        usuarioDao.criarUsuario(user);
+
 //        usuarioDao.excluirUsuario(2);
 //        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
         Administrador admin = new Administrador();
-        Musica musica = new Musica(0,
-                "paranoid",
-                "black sabbath",
-                "/music/1.mp3",
-                0, "Rock"
-        );
-        admin.excluirMusica(1);
-      
-       
+        Usuario user = new Usuario(0, "Joao", true, "teste@gmail.com", "1111");
+//        Musica musica = new Musica(0,
+//                "N.I.B",
+//                "Black Sabbath",
+//                "/music/8.mp3",
+//                0, "Rock"
+//        );
+//        admin.criarMusica(musica);
 
+         List<Usuario> usuarios =  usuarioDao.buscarUsuarios();
+            for (Usuario usuario : usuarios) {
+                System.out.println(usuario.getNome());
+            
+        }
 //        boolean resultado = usuarioDao.alterarSenha("root", "root", "root");
 //        System.out.println(resultado);
     }
