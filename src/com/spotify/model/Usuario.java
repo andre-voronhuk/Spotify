@@ -4,7 +4,7 @@
  */
 package com.spotify.model;
 
-import com.spotify.DAO.UsuarioDAO;
+import com.spotify.DAO.*;
 
 /**
  *
@@ -70,6 +70,11 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
+    public Musica buscarMusica(int id) {
+
+        return new MusicaDAO().buscarMusica(id);
+
+    }
 
 }

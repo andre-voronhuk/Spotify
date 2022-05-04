@@ -6,7 +6,9 @@ package others;
 
 import com.spotify.DAO.AlbunDAO;
 import com.spotify.DAO.UsuarioDAO;
+import com.spotify.model.Administrador;
 import com.spotify.model.Albun;
+import com.spotify.model.Musica;
 import com.spotify.model.Usuario;
 import java.util.List;
 
@@ -23,18 +25,25 @@ public class testeMain {
 //        Albun albun2 = new Albun(0, "Black Sabbath 2009 Remaster", "Black Sabbath");
 //        dadosAlbun.criarAlbun(albun);
 //        dadosAlbun.criarAlbun(albun2);
-          UsuarioDAO usuarioDao = new UsuarioDAO();
-//        usuarioDao.criarUsuario(user);
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+
 //        usuarioDao.excluirUsuario(2);
 //        List<Usuario> userBuscar = usuarioDao.buscarUsuarios();
-         Usuario user = new Usuario(0, "Andre Voronhuk", true, "teste", "");
-         
-          if ( usuarioDao.criarUsuario(user) ) {
-              System.out.println("Usuario criado");
+        Administrador admin = new Administrador();
+        Usuario user = new Usuario(0, "Joao", true, "teste@gmail.com", "1111");
+//        Musica musica = new Musica(0,
+//                "N.I.B",
+//                "Black Sabbath",
+//                "/music/8.mp3",
+//                0, "Rock"
+//        );
+//        admin.criarMusica(musica);
+
+         List<Usuario> usuarios =  usuarioDao.buscarUsuarios();
+            for (Usuario usuario : usuarios) {
+                System.out.println(usuario.getNome());
             
-        }else{
-              System.out.println("Usuario nao criado");
-          }
+        }
 //        boolean resultado = usuarioDao.alterarSenha("root", "root", "root");
 //        System.out.println(resultado);
     }

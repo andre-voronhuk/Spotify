@@ -9,6 +9,7 @@ package com.spotify.model;
  * @author Voronhuk
  */
 public class Musica {
+
     private int id;
     private String nome;
     private String artista;
@@ -16,13 +17,16 @@ public class Musica {
     private String estilo;
     private int albunId;
 
-    public Musica(int id, String nome, String artista, String caminho,int albunId, String estilo) {
+    public Musica(int id, String nome, String artista, String caminho, int albunId, String estilo) {
         this.id = id;
         this.nome = nome;
         this.artista = artista;
         this.caminho = caminho;
         this.estilo = estilo;
         this.albunId = albunId;
+    }
+
+    public Musica() {
     }
 
     public int getId() {
@@ -48,7 +52,29 @@ public class Musica {
     public int getAlbunId() {
         return albunId;
     }
-    
-    
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setArtista(String artista) {
+        this.artista = artista;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
+
+    public void setEstilo(String estilo) {
+        this.estilo = estilo;
+    }
+
+    public void setAlbunId(int albunId) {
+        this.albunId = albunId;
+    }
 
 }
