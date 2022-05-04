@@ -1,7 +1,5 @@
-
 create database spotify;
 use spotify;
-
 -- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: spotify
@@ -31,17 +29,13 @@ CREATE TABLE `albun` (
   `nome` varchar(255) NOT NULL,
   `artista` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `albun`
 --
 
-LOCK TABLES `albun` WRITE;
-/*!40000 ALTER TABLE `albun` DISABLE KEYS */;
-/*!40000 ALTER TABLE `albun` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `musica`
@@ -56,18 +50,15 @@ CREATE TABLE `musica` (
   `artista` varchar(200) NOT NULL,
   `caminho` varchar(250) NOT NULL,
   `estilo` varchar(100) NOT NULL,
+  `albun_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `musica`
 --
 
-LOCK TABLES `musica` WRITE;
-/*!40000 ALTER TABLE `musica` DISABLE KEYS */;
-/*!40000 ALTER TABLE `musica` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `playlist`
@@ -131,26 +122,11 @@ CREATE TABLE `usuario` (
   `login` varchar(100) NOT NULL,
   `senha` varchar(70) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `usuario`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-05-01 17:40:17
+-- Dump completed on 2022-05-03 22:13:19

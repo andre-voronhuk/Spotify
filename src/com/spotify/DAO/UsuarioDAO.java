@@ -181,6 +181,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     }
 
+    @Override
     public boolean alterarSenha(String login, String senhaNova) {
         String query = "SELECT id FROM usuario WHERE login = ?";
         boolean logado = false;
