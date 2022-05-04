@@ -5,7 +5,6 @@
 package com.spotify.controller;
 
 import com.spotify.view.ViewFactory;
-import java.awt.Color;
 import javax.swing.JFrame;
 
 /**

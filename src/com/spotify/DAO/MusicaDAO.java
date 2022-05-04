@@ -7,6 +7,7 @@ package com.spotify.DAO;
 import com.spotify.model.Musica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -43,7 +44,7 @@ public class MusicaDAO {
     }
 
     public boolean excluirMusica(int id) {
-        String query = "DELETE FROM musica WHERE id = ?;";
+        String query = "DELETE FROM musica WHERE id = ?";
         try {
             boolean result;
             try ( PreparedStatement ps = conexao.prepareStatement(query)) {
@@ -60,8 +61,28 @@ public class MusicaDAO {
         return false;
     }
 
-    public boolean buscarMusica(int id) {
+    public Musica buscarMusica(int id) {
+        String query = "SELECT * FROM musica WHERE id = ?";
+        Musica musica = new Musica();
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setInt(1, id);
 
-        return false;
+            ResultSet result = ps.executeQuery();
+
+            result.next();
+
+            musica.setId(result.getInt("id"));
+            musica.setNome(result.getString("nome"));
+            musica.setArtista(result.getString("artista"));
+            musica.setCaminho(result.getString("caminho"));
+            musica.setEstilo(result.getString("estilo"));
+
+            System.out.println(" musica" + musica.getNome());
+            return musica;
+        } catch (SQLException e) {
+            return musica;
+        }
+
     }
 }
