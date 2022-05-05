@@ -6,4 +6,9 @@ nbproject/private/private.xml
 *.properties
 nbproject/private/private.xml
 /dist/
-*.xml
+*.class
+*.properties
+nbproject/project.properties
+nbproject/project.properties
+*.class
+*.class
