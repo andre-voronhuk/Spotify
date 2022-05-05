@@ -4,6 +4,8 @@
  */
 package com.spotify.controller;
 
+import com.spotify.DAO.UsuarioDAO;
+import com.spotify.model.Usuario;
 import com.spotify.view.ViewFactory;
 import javax.swing.JFrame;
 
@@ -37,6 +39,11 @@ public class Controller {
     public void abrirTelaCadastro() {
         cadastro = factory.createView("cadastro", controller);
 
+    }
+
+    public boolean cadastrarUsuario(Usuario usuario) {
+
+        return new UsuarioDAO().criarUsuario(usuario);
     }
 
 }
