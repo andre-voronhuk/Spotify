@@ -4,7 +4,11 @@
  */
 package com.spotify.controller;
 
+import com.spotify.view.TelaAlterarSenha;
+import com.spotify.view.TelaCadastro;
+import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -15,28 +19,47 @@ public class Controller {
 
     Controller controller;
     ViewFactory factory = new ViewFactory();
-    static JFrame login;
-    static JFrame cadastro;
+    JFrame telaLogin;
+    JFrame telaCadastro;
+    JFrame telaAlterarSenha;
+    JFrame telaAnterior;
 
     public static void main(String[] args) {
 
         Controller controller = new Controller();
-        controller.iniciarApp();
+        controller.iniciarApp(controller);
 
     }
 
-    public void iniciarApp() {
-        this.controller = new Controller();
+    public void iniciarApp(Controller controller) {
+        this.controller = controller;
         controller.abrirTelaLogin();
     }
 
     public void abrirTelaLogin() {
-        login = factory.createView("login", controller);
+        telaLogin = new TelaLogin(controller);
+        telaLogin = factory.createView("login", controller);
+        telaLogin.setVisible(true);
     }
 
     public void abrirTelaCadastro() {
-        cadastro = factory.createView("cadastro", controller);
+        telaCadastro = new TelaCadastro(controller);
+        telaCadastro = factory.createView("cadastro", controller);
+        telaCadastro.setVisible(true);
+        telaLogin.setVisible(false);
+    }
 
+    public void abrirTelaAlterarSenha() {
+        telaAlterarSenha = new TelaAlterarSenha(controller);
+        telaAlterarSenha = factory.createView("senha", controller);
+        telaAlterarSenha.setVisible(true);
+        telaLogin.setVisible(false);
+    }
+
+    public void abrirTela(JFrame telaAtual, String nomeTela) {
+
+        JFrame nova = factory.createView(nomeTela, controller);
+        telaAtual.dispose();
     }
 
 }

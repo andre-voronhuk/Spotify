@@ -43,6 +43,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Usuário");
 
         jLabelNomeUsuario.setText("Nome de Usuário");
 
@@ -129,13 +130,12 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldSenhaActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-
+        
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
-    
-        
+        this.dispose();
+        new Controller().abrirTelaLogin();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
