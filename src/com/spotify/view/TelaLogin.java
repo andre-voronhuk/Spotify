@@ -113,7 +113,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        new Controller().abrirTelaCadastro();
+        new Controller().abrirTela(this, "cadastro");
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -121,7 +121,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new Controller().abrirTelaAlterarSenha();        // TODO add your handling code here:
+        new Controller().abrirTela(this, "senha");        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

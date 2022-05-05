@@ -8,7 +8,6 @@ import com.spotify.view.TelaAlterarSenha;
 import com.spotify.view.TelaCadastro;
 import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
-import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -40,20 +39,6 @@ public class Controller {
         telaLogin = new TelaLogin(controller);
         telaLogin = factory.createView("login", controller);
         telaLogin.setVisible(true);
-    }
-
-    public void abrirTelaCadastro() {
-        telaCadastro = new TelaCadastro(controller);
-        telaCadastro = factory.createView("cadastro", controller);
-        telaCadastro.setVisible(true);
-        telaLogin.setVisible(false);
-    }
-
-    public void abrirTelaAlterarSenha() {
-        telaAlterarSenha = new TelaAlterarSenha(controller);
-        telaAlterarSenha = factory.createView("senha", controller);
-        telaAlterarSenha.setVisible(true);
-        telaLogin.setVisible(false);
     }
 
     public void abrirTela(JFrame telaAtual, String nomeTela) {
