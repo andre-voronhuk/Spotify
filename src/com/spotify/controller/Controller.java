@@ -40,13 +40,16 @@ public class Controller {
         telaLogin = new TelaLogin(controller);
         this.telaAtual = telaLogin;
         telaLogin = factory.createView("login", controller);
-        telaLogin.setVisible(true);
+        
     }
 
     public void abrirTela(JFrame telaAtual, String nomeTela) {
         this.telaAtual = telaAtual;
         nova = factory.createView(nomeTela, controller);
-       // telaAtual.dispose();
+        if (this.telaAtual != null) {
+            
+        this.telaAtual.dispose();
+        }
     }
 
     public boolean fazerLogin(String login, String senha) {
