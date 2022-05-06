@@ -2,8 +2,9 @@ package com.spotify.view;
 
 import com.spotify.controller.Controller;
 import java.awt.Color;
-import java.awt.Font;
+import others.ComponentFontFormatter;
 import javax.swing.JFrame;
+import others.ComponentesSwing;
 
 /**
  *
@@ -21,6 +22,7 @@ public class ViewFactory {
         this.controller = controller;
         JFrame frame;
         Color minhaCor = new Color(60,63,65);
+        Color colorLabel = new Color(187,187,187);
 
         switch (name) {
             case "login":
@@ -49,6 +51,9 @@ public class ViewFactory {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.getContentPane().setBackground(minhaCor);
+        ComponentFontFormatter cff = new ComponentFontFormatter(frame);
+        cff.format(colorLabel, ComponentesSwing.JLABEL);
+        cff.format(colorLabel, ComponentesSwing.JTEXTFIELD);
 
         return frame;
     }
