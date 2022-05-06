@@ -30,7 +30,7 @@ public class ViewFactory {
                 break;
 
             case "home":
-                frame = new TelaLogin(controller);
+                frame = new TelaInicial(controller);
                 break;
 
             case "cadastro":

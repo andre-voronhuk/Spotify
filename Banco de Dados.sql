@@ -1,6 +1,5 @@
 create database spotify;
-use spotify;
--- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
+use spotify;-- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: spotify
 -- ------------------------------------------------------
@@ -36,6 +35,11 @@ CREATE TABLE `albun` (
 -- Dumping data for table `albun`
 --
 
+LOCK TABLES `albun` WRITE;
+/*!40000 ALTER TABLE `albun` DISABLE KEYS */;
+INSERT INTO `albun` VALUES (6,'The Girl','Flux Zone'),(7,'Black Sabbath 2009 Remaster','Black Sabbath');
+/*!40000 ALTER TABLE `albun` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `musica`
@@ -59,6 +63,11 @@ CREATE TABLE `musica` (
 -- Dumping data for table `musica`
 --
 
+LOCK TABLES `musica` WRITE;
+/*!40000 ALTER TABLE `musica` DISABLE KEYS */;
+INSERT INTO `musica` VALUES (1,'N.I.B','Black Sabbath','/music/8.mp3','Rock',0);
+/*!40000 ALTER TABLE `musica` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `playlist`
@@ -129,4 +138,19 @@ CREATE TABLE `usuario` (
 -- Dumping data for table `usuario`
 --
 
--- Dump completed on 2022-05-03 22:13:19
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Conta Admin','1','root','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-05-05 22:10:35

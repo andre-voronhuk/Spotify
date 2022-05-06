@@ -18,9 +18,9 @@ public class TelaInicial extends javax.swing.JFrame {
     Controller controller;
 
     TelaInicial(Controller controller) {
-          initComponents();
+        initComponents();
         this.controller = controller;
-      
+
     }
 
     @SuppressWarnings("unchecked")

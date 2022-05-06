@@ -8,9 +8,12 @@ nbproject/private/private.xml
 nbproject/private/*
 /dist/
 build/
+/build/*
+/build
 *.class
 *.properties
 nbproject/project.properties
 nbproject/project.properties
 *.class
 *.class
+build/classes/com/spotify/view/ViewFactory.class
