@@ -4,6 +4,8 @@
  */
 package com.spotify.view;
 
+import com.spotify.controller.Controller;
+
 /**
  *
  * @author renea
@@ -13,8 +15,12 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
-        initComponents();
+    Controller controller;
+
+    TelaInicial(Controller controller) {
+          initComponents();
+        this.controller = controller;
+      
     }
 
     @SuppressWarnings("unchecked")
