@@ -5,13 +5,15 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Voronhuk
  */
 public class TelaLogin extends javax.swing.JFrame {
-    
+
     Controller controller;
 
     /**
@@ -35,9 +37,9 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         inputUsuario = new javax.swing.JTextField();
-        inputSenha = new javax.swing.JTextField();
         btnCadastro = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        inputSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Spotify - Login");
@@ -71,6 +73,13 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        inputSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        inputSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,14 +88,14 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(inputUsuario)
-                    .addComponent(inputSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputSenha))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -114,25 +123,43 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         new Controller().abrirTela(this, "cadastro");
+       
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        String user = inputUsuario.getText();
+        char[] senhaChar = inputSenha.getPassword();
+        String senha = "";
+        for (char c : senhaChar) {
+            senha = senha + c;
+
+        }
+        if (!new Controller().fazerLogin(user, senha)) {
+            JOptionPane.showMessageDialog(this, "Senha invalida");
+        }else{
+            this.dispose();
+        }
+
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Controller().abrirTela(this, "senha");        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void inputSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSenhaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JTextField inputSenha;
+    private javax.swing.JPasswordField inputSenha;
     private javax.swing.JTextField inputUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

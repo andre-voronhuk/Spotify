@@ -4,8 +4,7 @@
  */
 package com.spotify.controller;
 
-import com.spotify.view.TelaAlterarSenha;
-import com.spotify.view.TelaCadastro;
+import com.spotify.DAO.UsuarioDAO;
 import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
 import javax.swing.JFrame;
@@ -22,6 +21,8 @@ public class Controller {
     JFrame telaCadastro;
     JFrame telaAlterarSenha;
     JFrame telaAnterior;
+    JFrame nova;
+    JFrame telaAtual;
 
     public static void main(String[] args) {
 
@@ -37,14 +38,28 @@ public class Controller {
 
     public void abrirTelaLogin() {
         telaLogin = new TelaLogin(controller);
+        this.telaAtual = telaLogin;
         telaLogin = factory.createView("login", controller);
         telaLogin.setVisible(true);
     }
 
     public void abrirTela(JFrame telaAtual, String nomeTela) {
+        this.telaAtual = telaAtual;
+        nova = factory.createView(nomeTela, controller);
+       // telaAtual.dispose();
+    }
 
-        JFrame nova = factory.createView(nomeTela, controller);
-        telaAtual.dispose();
+    public boolean fazerLogin(String login, String senha) {
+        boolean result = new UsuarioDAO().fazerLogin(login, senha);
+
+        if (result) {
+            this.abrirTela(telaAtual, "home");
+            return true;
+        } else {
+            return false;
+
+        }
+
     }
 
 }
