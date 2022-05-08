@@ -67,9 +67,9 @@ public class Controller {
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
-        
-        
-        return controller.cadastrarUsuario(usuario);
+        boolean result = new UsuarioDAO().criarUsuario(usuario);
+
+        return result;
     }
 
 }

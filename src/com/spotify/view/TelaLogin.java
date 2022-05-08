@@ -136,7 +136,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         }
         if (!new Controller().fazerLogin(user, senha)) {
-            JOptionPane.showMessageDialog(this, "Senha invalida");
+            JOptionPane.showMessageDialog(this, "Login ou senha invalida","Login",2);
+            
         }else{
             this.dispose();
         }

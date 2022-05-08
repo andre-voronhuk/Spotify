@@ -127,16 +127,15 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        // TODO verificar campos vazios
+
         String nome = jTextFieldNomeUsuario.getText();
         String login = jTextFieldEmail.getText();
         char[] senhaChar = jPasswordFieldSenha.getPassword();
         char[] confSenhaChar = jPasswordFieldConfirmarSenha.getPassword();
-        
-        
+
         String senha = "";
-        String confSenha="";
-        
+        String confSenha = "";
+
         for (char c : senhaChar) {
             senha = senha + c;
 
@@ -145,23 +144,35 @@ public class TelaCadastro extends javax.swing.JFrame {
             confSenha = confSenha + c;
 
         }
-        
-        
-        
-        if (!senha.equals(confSenha)) {
-            JOptionPane.showMessageDialog(null, "As senhas digitadas não coincidem!");
-            
-        }else{
-                       
+
+        if (nome.isEmpty() || login.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Cadastro", 2);
+            return;
         }
-        
-       // Usuario user = new Usuario(0, nome, false, login, senha);
-        
-      
+
+        if (!senha.equals(confSenha)) {
+            JOptionPane.showMessageDialog(null, "As senhas digitadas não coincidem!", "Cadastro", 2);
+            return;
+        }
+
+        Usuario user = new Usuario(0, nome, false, login, senha);
+ 
+        boolean result = new Controller().cadastrarUsuario(user);
+           
+        if (result) {
+            JOptionPane.showMessageDialog(null, "Usuario criado com sucesso!", "Sucesso!", 1);
+            new Controller().abrirTela(this, "login");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "E-mail ja cadastrado", "Erro", 2);
+
+        }
+
+
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        
+
         new Controller().abrirTela(this, "login");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
