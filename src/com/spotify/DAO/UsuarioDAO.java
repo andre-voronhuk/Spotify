@@ -26,13 +26,11 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public boolean criarUsuario(Usuario usuario) {
         String query = "INSERT INTO usuario (nome,funcao,login, senha) VALUES (?,?,?,?)";
-        if (usuario.getSenha().length() < 4) {
-            // Adicionar verificação
-        }
+      
         String senha = FuncaoHash.gerarHash(usuario.getSenha());// cria hash com salt
 
-        if (buscarUsuarios(usuario.getLogin()) == null) {
-
+        if (buscarUsuario(usuario.getLogin()) == null) {
+            //a partir daqui so entra se o usuario nao existir
             try {
 
                 PreparedStatement ps = conexao.prepareStatement(query);
@@ -117,7 +115,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
-    public Usuario buscarUsuarios(String login) {
+    public Usuario buscarUsuario(String login) {
 
         String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
 

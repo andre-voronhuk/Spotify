@@ -21,8 +21,8 @@ public class ViewFactory {
     public JFrame createView(String name, Controller controller) {
         this.controller = controller;
         JFrame frame;
-        Color minhaCor = new Color(60,63,65);
-        Color colorLabel = new Color(187,187,187);
+        Color minhaCor = new Color(60, 63, 65);
+        Color colorLabel = new Color(187, 187, 187);
 
         switch (name) {
             case "login":
@@ -36,7 +36,7 @@ public class ViewFactory {
             case "cadastro":
                 frame = new TelaCadastro(controller);
                 break;
-            
+
             case "senha":
                 frame = new TelaAlterarSenha(controller);
                 break;
@@ -48,7 +48,7 @@ public class ViewFactory {
         }
 
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+
         frame.setVisible(true);
         frame.getContentPane().setBackground(minhaCor);
         ComponentFontFormatter cff = new ComponentFontFormatter(frame);
@@ -57,7 +57,5 @@ public class ViewFactory {
 
         return frame;
     }
-
-   
 
 }
