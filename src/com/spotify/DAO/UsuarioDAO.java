@@ -216,7 +216,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
                 return true;
 
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("SQL erro ao alterar senha");
                 return false;
             }
