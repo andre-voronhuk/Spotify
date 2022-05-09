@@ -26,13 +26,11 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public boolean criarUsuario(Usuario usuario) {
         String query = "INSERT INTO usuario (nome,funcao,login, senha) VALUES (?,?,?,?)";
-        if (usuario.getSenha().length() < 4) {
-            // Adicionar verificação
-        }
+
         String senha = FuncaoHash.gerarHash(usuario.getSenha());// cria hash com salt
 
-        if (buscarUsuarios(usuario.getLogin()) == null) {
-
+        if (buscarUsuario(usuario.getLogin()) == null) {
+            //a partir daqui so entra se o usuario nao existir
             try {
 
                 PreparedStatement ps = conexao.prepareStatement(query);
@@ -42,9 +40,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 ps.setString(4, senha);
 
                 boolean result = ps.execute();
-
                 ps.close();
-
                 return true;
 
             } catch (Exception e) {
@@ -69,14 +65,13 @@ public class UsuarioDAO implements IUsuarioDAO {
             ResultSet dados = ps.executeQuery();
 
             while (dados.next()) {
-                Usuario u = new Usuario();
 
+                Usuario u = new Usuario();
                 u.setId(dados.getInt(1));
                 u.setNome(dados.getString(2));
                 u.setFuncao(dados.getBoolean(3));
                 u.setLogin(dados.getString(4));
                 u.setSenha(dados.getString(5));
-
                 usuarios.add(u);
             }
             return usuarios;
@@ -94,7 +89,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         try {
 
             PreparedStatement ps = conexao.prepareStatement(query);
-
             ps.setInt(1, id);
             ResultSet dados = ps.executeQuery();
 
@@ -106,6 +100,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 u.setLogin(dados.getString(3));
                 u.setSenha(dados.getString(4));
                 return u;
+
             } else {
                 return null;
             }
@@ -117,7 +112,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
-    public Usuario buscarUsuarios(String login) {
+    public Usuario buscarUsuario(String login) {
 
         String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
 

@@ -15,7 +15,7 @@ build/
 *.properties
 nbproject/project.properties
 nbproject/project.properties
-*.class
+/*.class
 *.class
 build/classes/com/spotify/view/ViewFactory.class
 *.class
