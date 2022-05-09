@@ -134,8 +134,8 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.dispose();
-        new Controller().abrirTelaLogin();
+        
+        new Controller().abrirTela(this, "login");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
