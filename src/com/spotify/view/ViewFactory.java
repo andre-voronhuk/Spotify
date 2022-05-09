@@ -53,7 +53,7 @@ public class ViewFactory {
         frame.getContentPane().setBackground(minhaCor);
         ComponentFontFormatter cff = new ComponentFontFormatter(frame);
         cff.format(colorLabel, ComponentesSwing.JLABEL);
-        cff.format(colorLabel, ComponentesSwing.JTEXTFIELD);
+        cff.format(colorLabel, ComponentesSwing.JBUTTON);
 
         return frame;
     }
