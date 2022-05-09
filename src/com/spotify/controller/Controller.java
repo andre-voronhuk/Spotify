@@ -47,8 +47,8 @@ public class Controller {
     public void abrirTela(JFrame telaAtual, String nomeTela) {
         this.telaAtual = telaAtual;
         nova = factory.createView(nomeTela, controller);
+        
         if (this.telaAtual != null) {
-
             this.telaAtual.dispose();
         }
     }
@@ -61,9 +61,7 @@ public class Controller {
             return true;
         } else {
             return false;
-
         }
-
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
