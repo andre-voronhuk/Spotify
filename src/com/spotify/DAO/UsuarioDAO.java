@@ -31,7 +31,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
         String senha = FuncaoHash.gerarHash(usuario.getSenha());// cria hash com salt
 
-        if (buscarUsuarios(usuario.getLogin()) == null) {
+        if (buscarUsuario(usuario.getLogin()) == null) {
 
             try {
 
@@ -117,7 +117,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
-    public Usuario buscarUsuarios(String login) {
+    public Usuario buscarUsuario(String login) {
 
         String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
 
