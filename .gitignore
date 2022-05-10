@@ -18,3 +18,4 @@ nbproject/project.properties
 *.class
 build/classes/com/spotify/view/ViewFactory.class
 *.xml
+nbproject/private/private.properties
