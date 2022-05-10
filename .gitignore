@@ -1,5 +1,6 @@
 
 nbproject/private/private.properties
+nbproject/private/*
 nbproject/project.properties
 *.properties
 nbproject/private/private.xml
@@ -14,8 +15,8 @@ build/
 *.properties
 nbproject/project.properties
 nbproject/project.properties
-*.class
+/*.class
 *.class
 build/classes/com/spotify/view/ViewFactory.class
+*.class
 *.xml
-nbproject/private/private.properties

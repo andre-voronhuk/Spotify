@@ -53,6 +53,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuario");
@@ -77,6 +82,11 @@ public class TelaLogin extends javax.swing.JFrame {
         inputSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputSenhaActionPerformed(evt);
+            }
+        });
+        inputSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputSenhaKeyPressed(evt);
             }
         });
 
@@ -111,11 +121,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(inputSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastro)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
 
         pack();
@@ -123,7 +133,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         new Controller().abrirTela(this, "cadastro");
-       
+
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -136,8 +146,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         }
         if (!new Controller().fazerLogin(user, senha)) {
-            JOptionPane.showMessageDialog(this, "Senha invalida");
-        }else{
+            JOptionPane.showMessageDialog(this, "Login ou senha invalida", "Login", 2);
+
+        } else {
             this.dispose();
         }
 
@@ -151,6 +162,18 @@ public class TelaLogin extends javax.swing.JFrame {
     private void inputSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputSenhaActionPerformed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void inputSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSenhaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == 10) {
+            btnLoginActionPerformed(null);
+
+        }
+    }//GEN-LAST:event_inputSenhaKeyPressed
 
     /**
      * @param args the command line arguments

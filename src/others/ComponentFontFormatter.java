@@ -63,7 +63,7 @@ public class ComponentFontFormatter{
                 }
                 
             default:
-                //throw new AssertionError();
+              //  throw new AssertionError();
         }
     }
     
