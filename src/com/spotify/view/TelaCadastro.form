@@ -38,8 +38,8 @@
                   <Component id="jLabelEmail" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldNomeUsuario" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTextFieldEmail" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPasswordFieldSenha" max="32767" attributes="0"/>
-                  <Component id="jPasswordFieldConfirmarSenha" max="32767" attributes="0"/>
+                  <Component id="jTextFieldSenha" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTextFieldConfirmarSenha" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
@@ -58,18 +58,18 @@
               <Component id="jTextFieldEmail" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabelSenha" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPasswordFieldSenha" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTextFieldSenha" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabelConfirmarSenha" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPasswordFieldConfirmarSenha" min="-2" max="-2" attributes="0"/>
+              <Component id="jTextFieldConfirmarSenha" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,9 +84,6 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNomeUsuarioActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelEmail">
       <Properties>
@@ -100,10 +97,17 @@
         <Property name="text" type="java.lang.String" value="Senha"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldSenha">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldSenhaActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JLabel" name="jLabelConfirmarSenha">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar Senha"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldConfirmarSenha">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>
@@ -120,10 +124,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordFieldSenha">
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordFieldConfirmarSenha">
     </Component>
   </SubComponents>
 </Form>

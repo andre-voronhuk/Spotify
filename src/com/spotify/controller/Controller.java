@@ -54,15 +54,14 @@ public class Controller {
         telaLogin = new TelaLogin(controller);
         this.telaAtual = telaLogin;
         telaLogin = factory.createView("login", this);
-
     }
 
     public void abrirTela(JFrame telaAtual, String nomeTela) {
         this.telaAtual = telaAtual;
         nova = factory.createView(nomeTela, this);
-
         if (this.telaAtual != null) {
-            this.telaAtual.dispose();
+            
+        this.telaAtual.dispose();
         }
     }
 
@@ -78,13 +77,9 @@ public class Controller {
             return true;
         } else {
             return false;
+
         }
-    }
 
-    public boolean cadastrarUsuario(Usuario usuario) {
-        boolean result = new UsuarioDAO().criarUsuario(usuario);
-
-        return result;
     }
 
     public Usuario getUser() {
