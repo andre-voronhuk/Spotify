@@ -36,7 +36,7 @@ public class Usuario {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
