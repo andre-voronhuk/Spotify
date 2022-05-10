@@ -20,3 +20,4 @@ nbproject/project.properties
 build/classes/com/spotify/view/ViewFactory.class
 *.class
 *.xml
+*.xml
