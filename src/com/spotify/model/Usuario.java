@@ -5,6 +5,7 @@
 package com.spotify.model;
 
 import com.spotify.DAO.*;
+import java.util.List;
 
 /**
  *
@@ -71,10 +72,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Musica buscarMusica(int id) {
-
-        return new MusicaDAO().buscarMusica(id);
-
+    public List<Playlist> getPlaylist() {
+        return new PlaylistDAO().getPlaylists(this.id);
     }
 
 }

@@ -24,7 +24,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
         jLabelNome.setText(usuarioLogado.getNome());
-        
+
         if (usuarioLogado.getFuncao()) {
 
         }
@@ -55,7 +55,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListPlaylists = new javax.swing.JList<>();
         jPanelUsuario = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -193,12 +193,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Buscar");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jListPlaylists.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(jListPlaylists);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -314,7 +314,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jListPlaylists;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
