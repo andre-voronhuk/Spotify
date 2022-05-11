@@ -54,6 +54,7 @@ public class ViewFactory {
         ComponentFontFormatter cff = new ComponentFontFormatter(frame);
         cff.format(colorLabel, ComponentesSwing.JLABEL);
         cff.format(colorLabel, ComponentesSwing.JBUTTON);
+        cff.format(colorLabel, ComponentesSwing.JLIST);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         return frame;

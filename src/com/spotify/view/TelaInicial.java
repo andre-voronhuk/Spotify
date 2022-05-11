@@ -5,12 +5,8 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
-import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,27 +19,16 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     Controller controller;
     Usuario usuarioLogado;
-    List<String> playlistsNomes;
 
     TelaInicial(Controller controller) {
         initComponents();
-        this.playlistsNomes = new ArrayList<>();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
-
         jLabelNome.setText(usuarioLogado.getNome());
-
+        
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
-        }
-       
-//        for (Playlist playlist : usuarioLogado.getPlaylist()) {
-//            
-//            this.playlistsNomes.add(playlist.getNome());
-//            JLabel jlabelTeste = new javax.swing.JLabel(playlist.getNome());
-//            jListPlaylists.add(jlabelTeste);
-//
-//        }
+        } 
 
     }
 
@@ -58,25 +43,26 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        jButtonPlay = new javax.swing.JButton();
+        jButtonAvancar = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
+        jProgressBar = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jListMusicas = new javax.swing.JList<>();
+        jLabelNomeMusica = new javax.swing.JLabel();
+        jLabelNomeArtista = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListPlaylists = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
         jPanelUsuario = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        jButtonPerfil = new javax.swing.JButton();
         jButtonAdministrador = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,30 +94,30 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setText("Play");
+        jButtonPlay.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonPlay.setText("Play");
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setText(">l");
+        jButtonAvancar.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonAvancar.setText(">l");
 
-        jButton4.setBackground(new java.awt.Color(51, 51, 51));
-        jButton4.setText("l<");
+        jButtonVoltar.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonVoltar.setText("l<");
 
-        jList1.setBackground(new java.awt.Color(51, 51, 51));
-        jList1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jListMusicas.setBackground(new java.awt.Color(61, 61, 61));
+        jListMusicas.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jListMusicas.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList1.setToolTipText("");
-        jScrollPane1.setViewportView(jList1);
+        jListMusicas.setToolTipText("");
+        jScrollPane1.setViewportView(jListMusicas);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setText("Nome da Musica");
+        jLabelNomeMusica.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabelNomeMusica.setText("Nome da Musica");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel3.setText("Nome do Artista");
+        jLabelNomeArtista.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabelNomeArtista.setText("Nome do Artista");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel4.setText("2:30");
@@ -157,11 +143,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(196, 196, 196)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,13 +155,13 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton6))
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabelNomeArtista)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(31, 31, 31))))
@@ -189,47 +175,64 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabelNomeArtista)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVoltar)
+                    .addComponent(jButtonAvancar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Buscar");
+        jButtonBuscar.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonBuscar.setText("Buscar");
 
+        jListPlaylists.setBackground(new java.awt.Color(61, 61, 61));
+        jListPlaylists.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
         jScrollPane3.setViewportView(jListPlaylists);
+
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("Criar Playlist");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(jButtonBuscar)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -238,8 +241,8 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabelNome.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelNome.setText("Nome do Usuário");
 
-        jButton5.setBackground(new java.awt.Color(51, 51, 51));
-        jButton5.setText("Perfil");
+        jButtonPerfil.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonPerfil.setText("Perfil");
 
         jButtonAdministrador.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAdministrador.setText("Painel Administrador");
@@ -252,10 +255,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUsuarioLayout.createSequentialGroup()
                         .addComponent(jButtonAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -267,16 +270,16 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(jButtonPerfil)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAdministrador)
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jButton7.setText("Sair");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButtonSairActionPerformed(evt);
             }
         });
 
@@ -296,7 +299,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jPanelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -309,7 +312,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7)))
+                        .addComponent(jButtonSair)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -322,9 +325,14 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         controller.abrirTela(this, "login");
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       String teste = JOptionPane.showInputDialog("Nome da Playlist");
+        System.out.println(teste);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,24 +341,25 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonAdministrador;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jButtonAvancar;
+    private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonPerfil;
+    private javax.swing.JButton jButtonPlay;
+    private javax.swing.JButton jButtonSair;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabelNomeArtista;
+    private javax.swing.JLabel jLabelNomeMusica;
+    private javax.swing.JList<String> jListMusicas;
     private javax.swing.JList<String> jListPlaylists;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelUsuario;
-    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

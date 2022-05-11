@@ -8,5 +8,6 @@ package others;
 public enum ComponentesSwing {
     JLABEL,
     JTEXTFIELD,
-    JBUTTON;
+    JBUTTON,
+    JLIST;
 }
