@@ -5,7 +5,12 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,16 +23,27 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     Controller controller;
     Usuario usuarioLogado;
+    List<String> playlistsNomes;
 
     TelaInicial(Controller controller) {
         initComponents();
+        this.playlistsNomes = new ArrayList<>();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
+
         jLabelNome.setText(usuarioLogado.getNome());
-        
+
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
-        } 
+        }
+       
+//        for (Playlist playlist : usuarioLogado.getPlaylist()) {
+//            
+//            this.playlistsNomes.add(playlist.getNome());
+//            JLabel jlabelTeste = new javax.swing.JLabel(playlist.getNome());
+//            jListPlaylists.add(jlabelTeste);
+//
+//        }
 
     }
 
@@ -194,11 +210,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Buscar");
 
-        jListPlaylists.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jListPlaylists);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -209,7 +220,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -244,7 +255,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUsuarioLayout.createSequentialGroup()
                         .addComponent(jButtonAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
