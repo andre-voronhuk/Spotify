@@ -9,8 +9,10 @@ import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
 import java.awt.Component;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.text.Element;
 
 /**
  *
@@ -34,15 +36,15 @@ public class TelaInicial extends javax.swing.JFrame {
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
         }
-        System.out.println(usuarioLogado.getId());
 
-        //  System.out.println(usuarioLogado.getPlaylist().get(0).getNome());
         List<Playlist> listplay = usuarioLogado.getPlaylist();
-
+        DefaultListModel model = new DefaultListModel<>();
+        int i = 0;
         for (Playlist playlist : listplay) {
-
+            model.add(i, playlist.getNome());
+            
         }
-
+        jListPlaylists.setModel(model);
     }
 
     @SuppressWarnings("unchecked")
