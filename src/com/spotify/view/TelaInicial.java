@@ -25,7 +25,7 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     Controller controller;
     Usuario usuarioLogado;
-    List playlists;
+    List<Playlist> playlists;
 
     TelaInicial(Controller controller) {
         initComponents();
@@ -42,7 +42,8 @@ public class TelaInicial extends javax.swing.JFrame {
         int i = 0;
         for (Playlist playlist : listplay) {
             model.add(i, playlist.getNome());
-            
+            playlists.add(playlist);
+
         }
         jListPlaylists.setModel(model);
     }
