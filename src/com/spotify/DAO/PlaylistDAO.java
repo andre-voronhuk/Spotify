@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -36,6 +37,10 @@ public class PlaylistDAO {
             System.out.println("ERRO playlist: " + e);
             return false;
         }
+    }
+
+    public List<Playlist> getPlaylists(int dono_id) {
+        return null;
     }
 
     public boolean adicionarMusica(Playlist playlist, Musica musica) {
