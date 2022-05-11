@@ -31,18 +31,28 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
+
         jLabelNome.setText(usuarioLogado.getNome());
 
+        esconderPainelADM();
+        atualizarPlaylists();
+    }
+
+    private void esconderPainelADM() {
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
         }
 
-        List<Playlist> listplay = usuarioLogado.getPlaylist();
+    }
+
+    private void atualizarPlaylists() {
+
+        List<Playlist> playlists = usuarioLogado.getPlaylist();
+
         DefaultListModel model = new DefaultListModel<>();
         int i = 0;
-        for (Playlist playlist : listplay) {
+        for (Playlist playlist : playlists) {
             model.add(i, playlist.getNome());
-            playlists.add(playlist);
 
         }
         jListPlaylists.setModel(model);
@@ -94,6 +104,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Spotify - Home");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -346,8 +357,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String teste = JOptionPane.showInputDialog("Nome da Playlist");
-        System.out.println(teste);
+        String novaPlaylist = JOptionPane.showInputDialog("Nome da Playlist");
+        this.controller.criarPlaylist(novaPlaylist);
+        atualizarPlaylists();
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

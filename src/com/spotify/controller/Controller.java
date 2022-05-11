@@ -4,6 +4,7 @@
  */
 package com.spotify.controller;
 
+import com.spotify.DAO.PlaylistDAO;
 import com.spotify.DAO.UsuarioDAO;
 import com.spotify.model.Usuario;
 import com.spotify.view.TelaLogin;
@@ -46,7 +47,7 @@ public class Controller {
     }
 
     public void iniciarApp() {
-        
+
         this.abrirTelaLogin();
     }
 
@@ -70,9 +71,9 @@ public class Controller {
         boolean result = new UsuarioDAO().fazerLogin(login, senha);
 
         if (result) {
-            
+
             this.user = new UsuarioDAO().buscarUsuario(login);
-           
+
             this.abrirTela(telaAtual, "home");
             //salva os dados do usuario logado
             return true;
@@ -89,6 +90,11 @@ public class Controller {
 
     public Usuario getUser() {
         return this.user;
+    }
+
+    public boolean criarPlaylist(String nome) {
+        return new PlaylistDAO().criarPlaylist(nome, this.user.getId());
+         
     }
 
 }
