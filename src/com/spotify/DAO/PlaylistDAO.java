@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,14 +24,14 @@ public class PlaylistDAO {
     private final Conexao con = new Conexao();
     private final Connection conexao = con.conectar();
 
-    public boolean criarPlaylist(Playlist playlist, int dono_id) {
+    public boolean criarPlaylist(String nome, int dono_id) {
 
         String query = "INSERT INTO playlist (nome,dono_id) VALUES (?,?)";
 
         try {
 
             PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setString(1, playlist.getNome());
+            ps.setString(1, nome);
             ps.setInt(2, dono_id);
             boolean result = ps.execute();
             ps.close();
@@ -40,7 +43,28 @@ public class PlaylistDAO {
     }
 
     public List<Playlist> getPlaylists(int dono_id) {
-        return null;
+        String query = "SELECT nome,dono_id from playlist where ";
+
+        List<Playlist> playlists = new ArrayList<>();
+        PreparedStatement ps;
+        try {
+            ps = conexao.prepareStatement(query);
+
+            ResultSet dados = ps.executeQuery();
+
+            while (dados.next()) {
+
+                Playlist p = new Playlist();
+                p.setNome(dados.getString(1));
+                p.setDono(dados.getInt(2));
+
+                playlists.add(p);
+            }
+            return playlists;
+        } catch (SQLException ex) {
+            return null;
+        }
+
     }
 
     public boolean adicionarMusica(Playlist playlist, Musica musica) {

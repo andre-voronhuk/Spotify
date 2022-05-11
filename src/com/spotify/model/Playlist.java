@@ -10,15 +10,17 @@ package com.spotify.model;
  */
 public class Playlist {
 
-    private final int id;
-    private final String nome;
-    private final Usuario dono;
+    private int id;
+    private String nome;
+    private int dono_id;
 
-    public Playlist(int id, String nome, Usuario dono) {
-        this.id = id;
+    public Playlist() {
+    }
+
+    public Playlist(String nome, int dono_id) {
+        this.id = 0;
         this.nome = nome;
-
-        this.dono = dono;
+        this.dono_id = dono_id;
     }
 
     public int getId() {
@@ -29,8 +31,20 @@ public class Playlist {
         return nome;
     }
 
-    public Usuario getDono() {
-        return dono;
+    public int getDono() {
+        return dono_id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDono(int dono_id) {
+        this.dono_id = dono_id;
     }
 
 }
