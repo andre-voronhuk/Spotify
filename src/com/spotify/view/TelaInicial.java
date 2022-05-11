@@ -5,7 +5,11 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,16 +23,25 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     Controller controller;
     Usuario usuarioLogado;
+    List playlists;
 
     TelaInicial(Controller controller) {
         initComponents();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
         jLabelNome.setText(usuarioLogado.getNome());
-        
+
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
-        } 
+        }
+        System.out.println(usuarioLogado.getId());
+
+        //  System.out.println(usuarioLogado.getPlaylist().get(0).getNome());
+        List<Playlist> listplay = usuarioLogado.getPlaylist();
+
+        for (Playlist playlist : listplay) {
+
+        }
 
     }
 
@@ -221,7 +234,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -258,7 +271,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jButtonPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUsuarioLayout.createSequentialGroup()
                         .addComponent(jButtonAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -330,7 +343,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String teste = JOptionPane.showInputDialog("Nome da Playlist");
+        String teste = JOptionPane.showInputDialog("Nome da Playlist");
         System.out.println(teste);
     }//GEN-LAST:event_jButton1ActionPerformed
 

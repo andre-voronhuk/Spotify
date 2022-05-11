@@ -84,7 +84,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     public Usuario buscarUsuarios(int id) {
 
-        String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE id = ? ";
+        String query = "SELECT  nome,funcao,login, senha,id FROM usuario WHERE id = ? ";
 
         try {
 
@@ -95,10 +95,12 @@ public class UsuarioDAO implements IUsuarioDAO {
             if (dados.next()) {
 
                 Usuario u = new Usuario();
+
                 u.setNome(dados.getString(1));
                 u.setFuncao(dados.getBoolean(2));
                 u.setLogin(dados.getString(3));
                 u.setSenha(dados.getString(4));
+                u.setId(dados.getInt(5));
                 return u;
 
             } else {
@@ -114,7 +116,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     public Usuario buscarUsuario(String login) {
 
-        String query = "SELECT  nome,funcao,login, senha FROM usuario WHERE login = ? ";
+        String query = "SELECT  nome,funcao,login, senha,id FROM usuario WHERE login = ? ";
 
         try {
 
@@ -130,6 +132,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 u.setFuncao(dados.getBoolean(2));
                 u.setLogin(dados.getString(3));
                 u.setSenha(dados.getString(4));
+                u.setId(dados.getInt(5));
                 return u;
             } else {
                 return null;
