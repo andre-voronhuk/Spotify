@@ -26,38 +26,44 @@ public class TelaInicial extends javax.swing.JFrame {
     Controller controller;
     Usuario usuarioLogado;
     List<Playlist> playlists;
-
+    
     TelaInicial(Controller controller) {
         initComponents();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
-
+        
         jLabelNome.setText(usuarioLogado.getNome());
-
+        
         esconderPainelADM();
         atualizarPlaylists();
     }
-
+    
     private void esconderPainelADM() {
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
         }
-
+        
     }
-
+    
     private void atualizarPlaylists() {
-
+        
         List<Playlist> playlists = usuarioLogado.getPlaylist();
-
+        
         DefaultListModel model = new DefaultListModel<>();
-        int i = 0;
+        model.add(0, "Todas as Musicas");
+        int i = 1;
         for (Playlist playlist : playlists) {
             model.add(i, playlist.getNome());
-
+            
         }
         jListPlaylists.setModel(model);
+        jListPlaylists.setSelectedIndex(0);
     }
-
+    
+    private void atualizarMusicas() {
+        
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -229,6 +235,16 @@ public class TelaInicial extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jListPlaylists.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListPlaylistsMouseClicked(evt);
+            }
+        });
+        jListPlaylists.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListPlaylistsValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(jListPlaylists);
 
         jButton1.setBackground(new java.awt.Color(51, 51, 51));
@@ -361,8 +377,19 @@ public class TelaInicial extends javax.swing.JFrame {
         this.controller.criarPlaylist(novaPlaylist);
         atualizarPlaylists();
         
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jListPlaylistsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPlaylistsMouseClicked
+        // ENTRA AQUI QUANDO USUARIO SELECIONA UMA PLAYLIST
+        System.out.println(jListPlaylists.getSelectedValue());
+
+    }//GEN-LAST:event_jListPlaylistsMouseClicked
+
+    private void jListPlaylistsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListPlaylistsValueChanged
+        
+
+    }//GEN-LAST:event_jListPlaylistsValueChanged
 
     /**
      * @param args the command line arguments
