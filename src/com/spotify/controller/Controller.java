@@ -6,9 +6,11 @@ package com.spotify.controller;
 
 import com.spotify.DAO.PlaylistDAO;
 import com.spotify.DAO.UsuarioDAO;
+import com.spotify.model.Musica;
 import com.spotify.model.Usuario;
 import com.spotify.view.TelaLogin;
 import com.spotify.view.ViewFactory;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import spotify_teste.TesteConexao;
@@ -94,7 +96,11 @@ public class Controller {
 
     public boolean criarPlaylist(String nome) {
         return new PlaylistDAO().criarPlaylist(nome, this.user.getId());
-         
+
+    }
+
+    public List<Musica> buscarMusicasPlaylist(String nomePlaylist) {
+        return new PlaylistDAO().getMusicas(nomePlaylist, this.user.getId());
     }
 
 }
