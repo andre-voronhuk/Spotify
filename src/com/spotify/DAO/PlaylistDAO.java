@@ -27,6 +27,10 @@ public class PlaylistDAO {
     public boolean criarPlaylist(String nome, int dono_id) {
 
         String query = "INSERT INTO playlist (nome,dono_id) VALUES (?,?)";
+        
+        if (nome.equals("") || nome.equals(" ")) {
+            return false;
+        }
 
         try {
 
@@ -43,13 +47,13 @@ public class PlaylistDAO {
     }
 
     public List<Playlist> getPlaylists(int dono_id) {
-        String query = "SELECT nome,dono_id from playlist where ";
+        String query = "SELECT nome,dono_id from playlist where dono_id = ? ";
 
         List<Playlist> playlists = new ArrayList<>();
         PreparedStatement ps;
         try {
             ps = conexao.prepareStatement(query);
-
+            ps.setInt(1, dono_id);
             ResultSet dados = ps.executeQuery();
 
             while (dados.next()) {
