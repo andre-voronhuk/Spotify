@@ -289,6 +289,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonAdministrador.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAdministrador.setText("Painel Administrador");
+        jButtonAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdministradorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelUsuarioLayout = new javax.swing.GroupLayout(jPanelUsuario);
         jPanelUsuario.setLayout(jPanelUsuarioLayout);
@@ -390,6 +395,10 @@ public class TelaInicial extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_jListPlaylistsValueChanged
+
+    private void jButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdministradorActionPerformed
+        this.controller.abrirTela(this, "administrador");
+    }//GEN-LAST:event_jButtonAdministradorActionPerformed
 
     /**
      * @param args the command line arguments

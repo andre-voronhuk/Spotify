@@ -40,6 +40,14 @@ public class ViewFactory {
             case "senha":
                 frame = new TelaAlterarSenha(controller);
                 break;
+                
+            case "administrador":
+                frame = new TelaAdministrador(controller);
+                break;
+                
+            case "adicionarMusica":
+                frame = new TelaCadastrarMusica(controller);
+                break;
 
             default:
                 frame = new JFrame();
