@@ -27,7 +27,7 @@ public class PlaylistDAO {
     public boolean criarPlaylist(String nome, int dono_id) {
 
         String query = "INSERT INTO playlist (nome,dono_id) VALUES (?,?)";
-        
+
         if (nome.equals("") || nome.equals(" ")) {
             return false;
         }
@@ -120,6 +120,43 @@ public class PlaylistDAO {
         } catch (Exception e) {
             System.out.println("ERRO Delete de musica em playlist: " + e);
 
+        }
+
+    }
+
+    public List<Musica> getMusicas(String nomePlaylist, int dono_id) {
+        String query = "SELECT m.id,m.nome, m.artista, m.caminho, m.estilo,m.albun_id\n"
+                + "FROM playlist as p \n"
+                + "INNER JOIN playlist_musica as pm\n"
+                + "ON pm.playlist_id = p.id\n"
+                + "INNER JOIN musica as m \n"
+                + "ON m.id = pm.musica_id\n"
+                + "where p.nome=? and p.dono_id=?;";
+
+        List<Musica> musicas = new ArrayList<>();
+        PreparedStatement ps;
+        try {
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, nomePlaylist);
+            ps.setInt(2, dono_id);
+            ResultSet dados = ps.executeQuery();
+
+            while (dados.next()) {
+
+                Musica m = new Musica();
+                m.setId(dados.getInt(1));
+                m.setNome(dados.getString(2));
+                m.setArtista(dados.getString(3));
+                m.setCaminho(dados.getString(4));
+                m.setEstilo(dados.getString(5));
+                m.setAlbunId(dados.getInt(6));
+
+             
+                musicas.add(m);
+            }
+            return musicas;
+        } catch (SQLException ex) {
+            return null;
         }
 
     }

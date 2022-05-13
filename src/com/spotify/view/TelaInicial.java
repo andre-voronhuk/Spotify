@@ -5,6 +5,7 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Musica;
 import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
 import java.awt.Component;
@@ -26,44 +27,55 @@ public class TelaInicial extends javax.swing.JFrame {
     Controller controller;
     Usuario usuarioLogado;
     List<Playlist> playlists;
-    
+
     TelaInicial(Controller controller) {
         initComponents();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
-        
+
         jLabelNome.setText(usuarioLogado.getNome());
-        
+
         esconderPainelADM();
         atualizarPlaylists();
+        atualizarMusicas("Todas as Musicas");
     }
-    
+
     private void esconderPainelADM() {
         if (!usuarioLogado.getFuncao()) {
             jButtonAdministrador.setVisible(false);
         }
-        
+
     }
-    
+
     private void atualizarPlaylists() {
-        
+
         List<Playlist> playlists = usuarioLogado.getPlaylist();
-        
+
         DefaultListModel model = new DefaultListModel<>();
         model.add(0, "Todas as Musicas");
         int i = 1;
         for (Playlist playlist : playlists) {
             model.add(i, playlist.getNome());
-            
+
         }
         jListPlaylists.setModel(model);
         jListPlaylists.setSelectedIndex(0);
     }
-    
-    private void atualizarMusicas() {
+
+    private void atualizarMusicas(String nomePlaylist) {
+        List<Musica> musicas = controller.buscarMusicasPlaylist(nomePlaylist);
+        DefaultListModel model = new DefaultListModel<>();
+        int i = 0;
+        for (Musica musica : musicas) {
+            model.add(i, musica.getNome());
+            i++;
+        }
+        jListMusicas.setModel(model);
+        jListMusicas.setSelectedIndex(0);
+        jLabelNomePlaylist.setText(nomePlaylist);
         
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,6 +97,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabelNomeArtista = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        jLabelNomePlaylist = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -174,14 +187,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -198,12 +203,27 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(31, 31, 31))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelNomePlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabelNomePlaylist)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,18 +401,27 @@ public class TelaInicial extends javax.swing.JFrame {
         String novaPlaylist = JOptionPane.showInputDialog("Nome da Playlist");
         this.controller.criarPlaylist(novaPlaylist);
         atualizarPlaylists();
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jListPlaylistsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPlaylistsMouseClicked
         // ENTRA AQUI QUANDO USUARIO SELECIONA UMA PLAYLIST
         System.out.println(jListPlaylists.getSelectedValue());
+        if (jListPlaylists.getSelectedIndex()>0) {
+          
+            atualizarMusicas(jListPlaylists.getSelectedValue());
+        }else{
+           
+            atualizarMusicas(null); //exibe todas as musicas se o indice 0 estiver selecionado
+            jLabelNomePlaylist.setText("Todas as Musicas");
+        }
+        
 
     }//GEN-LAST:event_jListPlaylistsMouseClicked
 
     private void jListPlaylistsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListPlaylistsValueChanged
-        
+
 
     }//GEN-LAST:event_jListPlaylistsValueChanged
 
@@ -419,6 +448,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNomeArtista;
     private javax.swing.JLabel jLabelNomeMusica;
+    private javax.swing.JLabel jLabelNomePlaylist;
     private javax.swing.JList<String> jListMusicas;
     private javax.swing.JList<String> jListPlaylists;
     private javax.swing.JPanel jPanel1;
