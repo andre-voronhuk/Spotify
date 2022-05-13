@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.Element;
+import others.PlayMP3;
 
 /**
  *
@@ -27,6 +28,8 @@ public class TelaInicial extends javax.swing.JFrame {
     Controller controller;
     Usuario usuarioLogado;
     List<Playlist> playlists;
+    PlayMP3 player = new PlayMP3();
+
 
     TelaInicial(Controller controller) {
         initComponents();
@@ -34,7 +37,6 @@ public class TelaInicial extends javax.swing.JFrame {
         this.usuarioLogado = controller.getUser();
 
         jLabelNome.setText(usuarioLogado.getNome());
-
         esconderPainelADM();
         atualizarPlaylists();
         atualizarMusicas("Todas as Musicas");
@@ -142,6 +144,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonPlay.setBackground(new java.awt.Color(51, 51, 51));
         jButtonPlay.setText("Play");
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
 
         jButtonAvancar.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAvancar.setText(">l");
@@ -428,6 +435,12 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdministradorActionPerformed
         this.controller.abrirTela(this, "administrador");
     }//GEN-LAST:event_jButtonAdministradorActionPerformed
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        // TODO add your handling code here:
+        this.player.run();
+        
+    }//GEN-LAST:event_jButtonPlayActionPerformed
 
     /**
      * @param args the command line arguments
