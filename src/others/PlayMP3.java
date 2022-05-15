@@ -14,8 +14,8 @@ import java.io.File;
 
 public class PlayMP3 extends Thread {
 
-    static boolean tocando = false;
-    static MP3Player mp3Player = new MP3Player();
+    public static boolean tocando = false;
+    public static MP3Player mp3Player = new MP3Player();
 
     public PlayMP3() {
         super();
@@ -27,6 +27,7 @@ public class PlayMP3 extends Thread {
     }
 
     public void play(String caminho) {
+
         try {
 
             File f = new File(caminho);
@@ -41,13 +42,13 @@ public class PlayMP3 extends Thread {
                 mp3Player.pause();
 
             }
-
             //while (!mp3Player.isStopped()) {
             //    //Thread.sleep(5000);
             //}
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
     }
 
     public void next() {

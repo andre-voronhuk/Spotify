@@ -64,12 +64,12 @@ public class MusicaDAO {
         return false;
     }
 
-    public Musica buscarMusica(int id) {
-        String query = "SELECT * FROM musica WHERE id = ?";
+    public Musica buscarMusica(String nome) {
+        String query = "SELECT * FROM musica WHERE nome = ?";
         Musica musica = new Musica();
         try {
             PreparedStatement ps = conexao.prepareStatement(query);
-            ps.setInt(1, id);
+            ps.setString(1, nome);
 
             ResultSet result = ps.executeQuery();
 
