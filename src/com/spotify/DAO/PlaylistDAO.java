@@ -125,6 +125,7 @@ public class PlaylistDAO {
     }
 
     public List<Musica> getMusicas(String nomePlaylist, int dono_id) {
+        boolean todas = false;
         String query = "SELECT m.id,m.nome, m.artista, m.caminho, m.estilo,m.albun_id\n"
                 + "FROM playlist as p \n"
                 + "INNER JOIN playlist_musica as pm\n"
@@ -133,12 +134,22 @@ public class PlaylistDAO {
                 + "ON m.id = pm.musica_id\n"
                 + "where p.nome=? and p.dono_id=?;";
 
+        if (nomePlaylist == "Todas as Musicas") {
+            todas = true;
+            query = "SELECT m.id,m.nome, m.artista, m.caminho, m.estilo,m.albun_id\n"
+                    + "FROM musica m;";
+
+        }
         List<Musica> musicas = new ArrayList<>();
         PreparedStatement ps;
         try {
             ps = conexao.prepareStatement(query);
-            ps.setString(1, nomePlaylist);
-            ps.setInt(2, dono_id);
+            if (!todas) {
+                ps.setString(1, nomePlaylist);
+                ps.setInt(2, dono_id);
+
+            }
+
             ResultSet dados = ps.executeQuery();
 
             while (dados.next()) {
@@ -151,7 +162,6 @@ public class PlaylistDAO {
                 m.setEstilo(dados.getString(5));
                 m.setAlbunId(dados.getInt(6));
 
-             
                 musicas.add(m);
             }
             return musicas;

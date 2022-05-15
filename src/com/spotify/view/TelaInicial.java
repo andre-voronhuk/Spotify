@@ -30,7 +30,6 @@ public class TelaInicial extends javax.swing.JFrame {
     List<Playlist> playlists;
     PlayMP3 player = new PlayMP3();
 
-
     TelaInicial(Controller controller) {
         initComponents();
         this.controller = controller;
@@ -65,7 +64,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     private void atualizarMusicas(String nomePlaylist) {
+
         List<Musica> musicas = controller.buscarMusicasPlaylist(nomePlaylist);
+        if (nomePlaylist == "Todas as Musicas") {
+            musicas = controller.buscarMusicasPlaylist("Todas as Musicas");
+        }
         DefaultListModel model = new DefaultListModel<>();
         int i = 0;
         for (Musica musica : musicas) {
@@ -75,7 +78,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jListMusicas.setModel(model);
         jListMusicas.setSelectedIndex(0);
         jLabelNomePlaylist.setText(nomePlaylist);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -231,7 +234,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jLabelNomePlaylist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -415,15 +418,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jListPlaylistsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPlaylistsMouseClicked
         // ENTRA AQUI QUANDO USUARIO SELECIONA UMA PLAYLIST
         System.out.println(jListPlaylists.getSelectedValue());
-        if (jListPlaylists.getSelectedIndex()>0) {
-          
-            atualizarMusicas(jListPlaylists.getSelectedValue());
-        }else{
-           
-            atualizarMusicas(null); //exibe todas as musicas se o indice 0 estiver selecionado
-            jLabelNomePlaylist.setText("Todas as Musicas");
-        }
-        
+
+        atualizarMusicas(jListPlaylists.getSelectedValue());
+
 
     }//GEN-LAST:event_jListPlaylistsMouseClicked
 
@@ -438,8 +435,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
-        this.player.run();
-        
+        this.player.play("musica/1.mp3");
+
+
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     /**
