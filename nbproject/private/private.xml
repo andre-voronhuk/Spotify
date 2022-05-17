@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaCadastrarMusica.java</file>
             <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaInicial.java</file>
-            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/controller/Controller.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaCadastro.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaAdministrador.java</file>
             <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaLogin.java</file>
-            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/DAO/UsuarioDAO.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/TelaGerenciarUsuarios.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/model/Usuario.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/model/Administrador.java</file>
             <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/view/ViewFactory.java</file>
+            <file>file:/C:/Users/renea/Documents/GitHub/Spotify/src/com/spotify/model/Albun.java</file>
         </group>
     </open-files>
 </project-private>
