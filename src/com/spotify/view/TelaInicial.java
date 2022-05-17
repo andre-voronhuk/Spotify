@@ -8,12 +8,16 @@ import com.spotify.controller.Controller;
 import com.spotify.model.Musica;
 import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
+import jaco.mp3.player.MP3Player;
 import java.awt.Component;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.Element;
+import others.PlayMP3;
 
 /**
  *
@@ -27,6 +31,8 @@ public class TelaInicial extends javax.swing.JFrame {
     Controller controller;
     Usuario usuarioLogado;
     List<Playlist> playlists;
+    PlayMP3 player = new PlayMP3();
+    List<String> musicasTocadas = new ArrayList<>();
 
     TelaInicial(Controller controller) {
         initComponents();
@@ -34,10 +40,10 @@ public class TelaInicial extends javax.swing.JFrame {
         this.usuarioLogado = controller.getUser();
 
         jLabelNome.setText(usuarioLogado.getNome());
-
         esconderPainelADM();
         atualizarPlaylists();
         atualizarMusicas("Todas as Musicas");
+
     }
 
     private void esconderPainelADM() {
@@ -63,7 +69,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     private void atualizarMusicas(String nomePlaylist) {
+
         List<Musica> musicas = controller.buscarMusicasPlaylist(nomePlaylist);
+        if (nomePlaylist == "Todas as Musicas") {
+            musicas = controller.buscarMusicasPlaylist("Todas as Musicas");
+        }
         DefaultListModel model = new DefaultListModel<>();
         int i = 0;
         for (Musica musica : musicas) {
@@ -73,7 +83,127 @@ public class TelaInicial extends javax.swing.JFrame {
         jListMusicas.setModel(model);
         jListMusicas.setSelectedIndex(0);
         jLabelNomePlaylist.setText(nomePlaylist);
-        
+
+    }
+
+    private void adicionarFila(String nomeMusica) {
+        DefaultListModel model = new DefaultListModel<>();
+
+        int i = 0;
+
+        while (i < jListFila.getModel().getSize()) {
+            //itera por todos os elementos
+            model.add(i, jListFila.getModel().getElementAt(i));
+            i++;
+        }
+        model.add(i, nomeMusica);
+        jListFila.setModel(model);
+
+        atualizarDadosMusica();
+
+    }
+
+    private void adicionarAoTopo(String nomeMusica) {
+        DefaultListModel model = new DefaultListModel<>();
+
+        model.add(0, nomeMusica);
+        int i = 1;
+        while (i < jListFila.getModel().getSize() + 1) {
+            //itera por todos os elementos
+            model.add(i, jListFila.getModel().getElementAt(i - 1));
+            i++;
+        }
+
+        jListFila.setModel(model);
+
+        atualizarDadosMusica();
+
+    }
+
+    private void atualizarDadosMusica() {
+        String nomeMusica = null;
+        try {
+            nomeMusica = jListFila.getModel().getElementAt(0);
+        } catch (Exception e) {
+        }
+
+        if (nomeMusica == null) {
+            jLabelNomeMusica.setText("Nenhuma Musica Selecionada");
+            jLabelNomeArtista.setText("***");
+
+            PlayMP3.mp3Player.stop();
+            PlayMP3.tocando = false;
+        } else {
+
+            Musica musica = this.controller.buscarMusica(nomeMusica);
+
+            jLabelNomeMusica.setText(musica.getNome());
+            jLabelNomeArtista.setText(musica.getArtista());
+
+        }
+    }
+
+    private void buscarEtocar(String nomeMusica, boolean topo) {
+        Musica musica = this.controller.buscarMusica(nomeMusica);
+        if (topo) {
+            adicionarAoTopo(nomeMusica);
+        } else {
+            adicionarFila(nomeMusica);
+        }
+
+        if (!PlayMP3.tocando) {
+            this.player.play(musica.getCaminho());
+            PlayMP3.tocando = true;
+        } else {
+
+            File f = new File(musica.getCaminho());
+            PlayMP3.mp3Player.addToPlayList(f);
+
+        }
+        atualizarDadosMusica();
+    }
+
+    private void guardarMusicasTocadas(String nomeMusica) {
+        this.musicasTocadas.add(this.musicasTocadas.size(), nomeMusica);
+        System.out.println("Guardado:" + nomeMusica);
+        System.out.println(musicasTocadas);
+    }
+
+    private void proximaMusica() {
+        PlayMP3.mp3Player.skipForward();
+        DefaultListModel model = new DefaultListModel<>();
+        try {
+            String musicaPulada = jListFila.getModel().getElementAt(0);
+            guardarMusicasTocadas(musicaPulada);
+
+        } catch (Exception e) {
+        }
+
+        int i = 1;
+        while (i < jListFila.getModel().getSize()) {
+            //itera por todos os elementos removendo o 1º elemento
+            model.add(i - 1, jListFila.getModel().getElementAt(i));
+            i++;
+        }
+
+        jListFila.setModel(model);
+        atualizarDadosMusica();
+    }
+
+    private void voltarMusica() {
+        PlayMP3.mp3Player.skipBackward();
+
+        try {
+            String ultima = musicasTocadas.get(musicasTocadas.size() - 1);
+            musicasTocadas.remove(musicasTocadas.lastIndexOf(ultima));
+
+            buscarEtocar(ultima, true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sem musicas para voltar!");
+
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -108,6 +238,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonPerfil = new javax.swing.JButton();
         jButtonAdministrador = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListFila = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,25 +275,40 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonPlay.setBackground(new java.awt.Color(51, 51, 51));
         jButtonPlay.setText("Play");
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
 
         jButtonAvancar.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAvancar.setText(">l");
+        jButtonAvancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAvancarActionPerformed(evt);
+            }
+        });
 
         jButtonVoltar.setBackground(new java.awt.Color(51, 51, 51));
         jButtonVoltar.setText("l<");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltarActionPerformed(evt);
+            }
+        });
 
         jListMusicas.setBackground(new java.awt.Color(61, 61, 61));
         jListMusicas.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jListMusicas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jListMusicas.setToolTipText("");
+        jListMusicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListMusicasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListMusicas);
 
         jLabelNomeMusica.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabelNomeMusica.setText("Nome da Musica");
+        jLabelNomeMusica.setText("Nenhuma Musica Selecionada");
 
         jLabelNomeArtista.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabelNomeArtista.setText("Nome do Artista");
@@ -192,8 +340,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton6))
                             .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -224,7 +372,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jLabelNomePlaylist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -351,6 +499,12 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jListFila.setBackground(new java.awt.Color(61, 61, 61));
+        jListFila.setEnabled(false);
+        jScrollPane4.setViewportView(jListFila);
+
+        jLabel1.setText("Fila de Reprodução");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,7 +521,14 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jPanelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -379,7 +540,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonSair)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -394,6 +559,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        PlayMP3.mp3Player.stop(); // para a musica dentro da classe
+        PlayMP3.tocando = false;  // atualiza o estado da variavel estatica
+
         controller.abrirTela(this, "login");
     }//GEN-LAST:event_jButtonSairActionPerformed
 
@@ -408,15 +576,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jListPlaylistsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPlaylistsMouseClicked
         // ENTRA AQUI QUANDO USUARIO SELECIONA UMA PLAYLIST
         System.out.println(jListPlaylists.getSelectedValue());
-        if (jListPlaylists.getSelectedIndex()>0) {
-          
-            atualizarMusicas(jListPlaylists.getSelectedValue());
-        }else{
-           
-            atualizarMusicas(null); //exibe todas as musicas se o indice 0 estiver selecionado
-            jLabelNomePlaylist.setText("Todas as Musicas");
-        }
-        
+
+        atualizarMusicas(jListPlaylists.getSelectedValue());
+
 
     }//GEN-LAST:event_jListPlaylistsMouseClicked
 
@@ -428,6 +590,56 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdministradorActionPerformed
         this.controller.abrirTela(this, "administrador");
     }//GEN-LAST:event_jButtonAdministradorActionPerformed
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        // TODO add your handling code here:
+
+        if (PlayMP3.tocando) {
+            PlayMP3.mp3Player.pause();
+            PlayMP3.tocando = false;
+
+        } else {
+            if (PlayMP3.mp3Player.isPaused()) {
+                PlayMP3.mp3Player.play();
+
+            } else {
+                String nomeMusica = jListMusicas.getSelectedValue();
+                buscarEtocar(nomeMusica, false);
+            }
+
+            PlayMP3.tocando = true;
+
+        }
+
+
+    }//GEN-LAST:event_jButtonPlayActionPerformed
+
+    private void jListMusicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMusicasMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            String nomeMusica = jListMusicas.getSelectedValue();
+            buscarEtocar(nomeMusica, false);
+        }
+    }//GEN-LAST:event_jListMusicasMouseClicked
+
+    private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
+        // TODO add your handling code here:
+
+        if (jListFila.getModel().getSize() > 1) {
+            proximaMusica();
+        } else {
+            PlayMP3.mp3Player.pause();
+            PlayMP3.tocando = false;
+            JOptionPane.showMessageDialog(this, "Sem musicas na fila!");
+        }
+
+    }//GEN-LAST:event_jButtonAvancarActionPerformed
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        // TODO add your handling code here:
+        voltarMusica();
+
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,11 +656,13 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPlay;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JButton jButtonVoltar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNomeArtista;
     private javax.swing.JLabel jLabelNomeMusica;
     private javax.swing.JLabel jLabelNomePlaylist;
+    private javax.swing.JList<String> jListFila;
     private javax.swing.JList<String> jListMusicas;
     private javax.swing.JList<String> jListPlaylists;
     private javax.swing.JPanel jPanel1;
@@ -459,8 +673,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
 }
