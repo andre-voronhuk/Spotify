@@ -5,6 +5,7 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Usuario;
 
 /**
  *
@@ -17,10 +18,15 @@ public class TelaAdministrador extends javax.swing.JFrame {
      */
     
     Controller controller;
+    Usuario usuarioLogado;
     
     public TelaAdministrador(Controller controller) {
-        this.controller = controller;
         initComponents();
+        this.controller = controller;
+        this.usuarioLogado = controller.getUser();
+        
+        jLabelNome.setText(usuarioLogado.getNome());
+        jLabelLogin.setText(usuarioLogado.getLogin());
     }
 
     /**
@@ -33,7 +39,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelNome = new javax.swing.JLabel();
-        jLabelEmail = new javax.swing.JLabel();
+        jLabelLogin = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButtonAddMusica = new javax.swing.JButton();
         jButtonAddAlbum = new javax.swing.JButton();
@@ -45,7 +51,8 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jLabelNome.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelNome.setText("Nome");
 
-        jLabelEmail.setText("email@email.com");
+        jLabelLogin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelLogin.setText("login");
 
         jButtonAddMusica.setText("Adicionar Música");
         jButtonAddMusica.addActionListener(new java.awt.event.ActionListener() {
@@ -82,8 +89,8 @@ public class TelaAdministrador extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(38, 38, 38)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelNome)
-                                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(24, 24, 24)
                             .addComponent(jButtonAddMusica)
@@ -99,7 +106,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelEmail)
+                .addComponent(jLabelLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,14 +116,14 @@ public class TelaAdministrador extends javax.swing.JFrame {
                     .addComponent(jButtonAddMusica))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonFechar)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUsuariosActionPerformed
-        // TODO add your handling code here:
+        this.controller.abrirTela(this, "gerenciarUsuarios");
     }//GEN-LAST:event_jButtonAddUsuariosActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
@@ -133,7 +140,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddMusica;
     private javax.swing.JButton jButtonAddUsuarios;
     private javax.swing.JButton jButtonFechar;
-    private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
