@@ -48,6 +48,18 @@ public class ViewFactory {
             case "adicionarMusica":
                 frame = new TelaCadastrarMusica(controller);
                 break;
+                
+            case "gerenciarUsuarios":
+                frame = new TelaGerenciarUsuarios(controller);
+                break;
+                
+            case "telaUsuario":
+                frame = new TelaUsuario(controller);
+                break;
+                
+            case "alterarDados":
+                frame = new TelaAlterarDados(controller);
+                break;
 
             default:
                 frame = new JFrame();

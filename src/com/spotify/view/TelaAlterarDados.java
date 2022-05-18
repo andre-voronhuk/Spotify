@@ -5,21 +5,28 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Usuario;
 
 /**
  *
  * @author renea
  */
-public class TelaGerenciarUsuarios extends javax.swing.JFrame {
+public class TelaAlterarDados extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaGerenciarUsuarios
+     * Creates new form AlterarDados
      */
     Controller controller;
+    Usuario usuarioLogado;
     
-    public TelaGerenciarUsuarios(Controller controller) {
+    public TelaAlterarDados(Controller controller) {
         initComponents();
         this.controller = controller;
+        this.usuarioLogado = controller.getUser();
+        
+        jLabelID.setText(Integer.toString(usuarioLogado.getId()));
+        jTextFieldNome.setText(usuarioLogado.getNome());
+        jTextFieldLogin.setText(usuarioLogado.getLogin());
     }
 
     /**
@@ -31,57 +38,30 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonExcluir = new javax.swing.JButton();
-        jButtonAlterar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelID = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextFieldLogin = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jTextFieldLogin = new javax.swing.JTextField();
+        jLabelSenha = new javax.swing.JLabel();
         jTextFieldSenha = new javax.swing.JTextField();
-        jLabelID = new javax.swing.JLabel();
-        jToggleButtonPromover = new javax.swing.JToggleButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableUsuarios = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
-        jButtonAdicionar = new javax.swing.JButton();
+        jButtonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButtonExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonExcluir.setText("Excluir");
-
-        jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonAlterar.setText("Alterar");
+        setTitle("Alterar Dados");
 
         jLabel1.setText("ID:");
 
+        jLabelID.setText("1");
+
         jLabelNome.setText("Nome");
 
-        jLabel3.setText("Login");
+        jLabel4.setText("Login");
 
-        jLabel4.setText("Senha");
+        jLabelSenha.setText("Senha");
 
-        jLabelID.setText("0");
-
-        jToggleButtonPromover.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jToggleButtonPromover.setText("Promover");
-
-        jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nome", "Login", "Senha"
-            }
-        ));
-        jScrollPane2.setViewportView(jTableUsuarios);
-
-        jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,43 +69,35 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jButtonAdicionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonAdicionar.setText("Adicionar");
+        jButtonConfirmar.setText("Confirmar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2)
+                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelSenha)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3)
                     .addComponent(jLabelNome)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelID))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jToggleButtonPromover, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldSenha)
+                    .addComponent(jTextFieldNome)
                     .addComponent(jTextFieldLogin)
-                    .addComponent(jTextFieldNome))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelID))
@@ -134,50 +106,38 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabelSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonExcluir)
-                    .addComponent(jButtonAlterar)
-                    .addComponent(jToggleButtonPromover))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonAdicionar))
-                .addGap(24, 24, 24))
+                    .addComponent(jButtonConfirmar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.controller.abrirTela(this, "administrador");
+        this.controller.abrirTela(this, "telaUsuario");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAdicionar;
-    private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableUsuarios;
+    private javax.swing.JLabel jLabelSenha;
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldSenha;
-    private javax.swing.JToggleButton jToggleButtonPromover;
     // End of variables declaration//GEN-END:variables
 }

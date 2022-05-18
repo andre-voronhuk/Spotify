@@ -454,6 +454,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonPerfil.setBackground(new java.awt.Color(51, 51, 51));
         jButtonPerfil.setText("Perfil");
+        jButtonPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPerfilActionPerformed(evt);
+            }
+        });
 
         jButtonAdministrador.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAdministrador.setText("Painel Administrador");
@@ -471,13 +476,12 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jButtonPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanelUsuarioLayout.createSequentialGroup()
                         .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUsuarioLayout.createSequentialGroup()
-                        .addComponent(jButtonAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanelUsuarioLayout.setVerticalGroup(
@@ -640,6 +644,10 @@ public class TelaInicial extends javax.swing.JFrame {
         voltarMusica();
 
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jButtonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPerfilActionPerformed
+        this.controller.abrirTela(this, "telaUsuario");
+    }//GEN-LAST:event_jButtonPerfilActionPerformed
 
     /**
      * @param args the command line arguments
