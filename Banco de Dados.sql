@@ -1,5 +1,6 @@
 create database spotify;
 use spotify;
+
 -- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: spotify
@@ -57,7 +58,7 @@ CREATE TABLE `musica` (
   `estilo` varchar(100) NOT NULL,
   `albun_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +67,7 @@ CREATE TABLE `musica` (
 
 LOCK TABLES `musica` WRITE;
 /*!40000 ALTER TABLE `musica` DISABLE KEYS */;
-INSERT INTO `musica` VALUES (1,'N.I.B','Black Sabbath','/music/8.mp3','Rock',0);
+INSERT INTO `musica` VALUES (1,'N.I.B','Black Sabbath','musica/8.mp3','Rock',7),(2,'The Underground','Flux Zone','musica/1.mp3','house',0);
 /*!40000 ALTER TABLE `musica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +83,7 @@ CREATE TABLE `playlist` (
   `nome` varchar(200) NOT NULL,
   `dono_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +92,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
+INSERT INTO `playlist` VALUES (1,'teste',2),(2,'rock',2),(3,'Musicas Boas',1),(4,'House',1),(5,'pera ai',1),(6,'lo-fi',8),(7,'',8),(8,'',8),(9,'a',8),(10,'boa',1),(11,'nova playlist',2);
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +108,7 @@ CREATE TABLE `playlist_musica` (
   `musica_id` int(11) NOT NULL,
   `playlist_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +117,7 @@ CREATE TABLE `playlist_musica` (
 
 LOCK TABLES `playlist_musica` WRITE;
 /*!40000 ALTER TABLE `playlist_musica` DISABLE KEYS */;
+INSERT INTO `playlist_musica` VALUES (1,1,1),(2,1,3),(3,1,3),(4,1,3),(5,1,3);
 /*!40000 ALTER TABLE `playlist_musica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +135,7 @@ CREATE TABLE `usuario` (
   `login` varchar(100) NOT NULL,
   `senha` varchar(70) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,8 +144,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Conta Admin','1','root','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB');
-INSERT INTO `usuario` VALUES (2,'Conta Usuario','0','user','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB');
+INSERT INTO `usuario` VALUES (1,'Conta Admin','1','root','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB'),(2,'Conta Usuario','0','user','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB'),(8,'André Voronhuk','0','voronhuk','5970F1FE287D819DC05B370709F6206E88C0642091773A68BA8FDE60DE2686EB');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05 22:10:35
+-- Dump completed on 2022-05-18 16:57:23

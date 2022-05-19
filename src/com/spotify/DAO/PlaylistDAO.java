@@ -25,7 +25,6 @@ public class PlaylistDAO {
     private final Connection conexao = con.conectar();
 
     public boolean criarPlaylist(String nome, int dono_id) {
-
         String query = "INSERT INTO playlist (nome,dono_id) VALUES (?,?)";
 
         if (nome.equals("") || nome.equals(" ")) {
@@ -47,7 +46,7 @@ public class PlaylistDAO {
     }
 
     public List<Playlist> getPlaylists(int dono_id) {
-        String query = "SELECT nome,dono_id from playlist where dono_id = ? ";
+        String query = "SELECT id,nome,dono_id from playlist where dono_id = ? ";
 
         List<Playlist> playlists = new ArrayList<>();
         PreparedStatement ps;
@@ -59,8 +58,9 @@ public class PlaylistDAO {
             while (dados.next()) {
 
                 Playlist p = new Playlist();
-                p.setNome(dados.getString(1));
-                p.setDono(dados.getInt(2));
+                p.setId(dados.getInt(1));
+                p.setNome(dados.getString(2));
+                p.setDono(dados.getInt(3));
 
                 playlists.add(p);
             }
@@ -72,7 +72,6 @@ public class PlaylistDAO {
     }
 
     public boolean adicionarMusica(Playlist playlist, Musica musica) {
-
         //adicionar id da playlist e id da musica na tabela playlist_musica
         String query = "INSERT INTO playlist_musica (musica_id,playlist_id) VALUES (?,?)";
 
@@ -83,11 +82,11 @@ public class PlaylistDAO {
             ps.setInt(1, musica.getId());
             ps.setInt(2, playlist.getId());
 
-            boolean result = ps.execute();
+             ps.execute();
 
             ps.close();
 
-            return result;
+            return true;
         } catch (SQLException e) {
             System.out.println("ERRO playlistDAO: " + e);
             return false;
@@ -97,7 +96,6 @@ public class PlaylistDAO {
 
     public void removerMusica(Playlist playlist, Musica musica) {
         //remover a linha no banco que associa a musica á playlist
-
         String query = "SELECT id from playlist_musica WHERE musica_id = ? AND playlist_id = ? LIMIT 1";
 
         try {
@@ -168,6 +166,41 @@ public class PlaylistDAO {
         } catch (SQLException ex) {
             return null;
         }
+
+    }
+
+    public boolean excluirPlaylist(String nome, int dono_id) {
+        String query = "DELETE FROM playlist WHERE nome = ? and dono_id =?";
+        PreparedStatement ps;
+        try {
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, nome);
+            ps.setInt(2, dono_id);
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+
+    }
+
+    public Playlist buscarPlaylist(String nomePlaylist, int dono_id) {
+        List<Playlist> playlists = getPlaylists(dono_id);
+        Playlist playlistSelecionada = null;
+
+        for (Playlist playlist : playlists) {
+            if (playlist.getNome().equals(nomePlaylist)) {
+                playlistSelecionada = playlist;
+                return playlistSelecionada;
+            }
+
+        }
+        if (playlistSelecionada == null) {
+            System.out.println("Playlist nao encontrada");
+            return null;
+        }
+        return null;
 
     }
 
