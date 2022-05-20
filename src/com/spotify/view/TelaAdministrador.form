@@ -45,7 +45,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAddMusica">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar M&#xfa;sica"/>
+        <Property name="text" type="java.lang.String" value="Gerenciar M&#xfa;sicas"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddMusicaActionPerformed"/>
@@ -102,6 +102,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar &#xc1;lbum"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddAlbumActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAddUsuarios">
       <Properties>

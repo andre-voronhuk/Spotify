@@ -6,6 +6,7 @@ package com.spotify.view;
 
 import com.spotify.controller.Controller;
 import com.spotify.model.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +17,14 @@ public class TelaAdministrador extends javax.swing.JFrame {
     /**
      * Creates new form TelaAdministrador
      */
-    
     Controller controller;
     Usuario usuarioLogado;
-    
+
     public TelaAdministrador(Controller controller) {
         initComponents();
         this.controller = controller;
         this.usuarioLogado = controller.getUser();
-        
+
         jLabelNome.setText(usuarioLogado.getNome());
         jLabelLogin.setText(usuarioLogado.getLogin());
     }
@@ -54,7 +54,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jLabelLogin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelLogin.setText("login");
 
-        jButtonAddMusica.setText("Adicionar Música");
+        jButtonAddMusica.setText("Gerenciar Músicas");
         jButtonAddMusica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddMusicaActionPerformed(evt);
@@ -62,6 +62,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         });
 
         jButtonAddAlbum.setText("Adicionar Álbum");
+        jButtonAddAlbum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddAlbumActionPerformed(evt);
+            }
+        });
 
         jButtonAddUsuarios.setText("Gerenciar Usuários");
         jButtonAddUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +103,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             .addComponent(jButtonAddAlbum)
                             .addGap(18, 18, 18)
                             .addComponent(jButtonAddUsuarios))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +138,22 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private void jButtonAddMusicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMusicaActionPerformed
         this.controller.abrirTela(this, "adicionarMusica");
     }//GEN-LAST:event_jButtonAddMusicaActionPerformed
+
+    private void jButtonAddAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddAlbumActionPerformed
+        // TODO add your handling code here:
+        String albumNome = JOptionPane.showInputDialog("Nome do Album");
+        String artista = JOptionPane.showInputDialog("Nome do Artista");
+        boolean result = this.controller.criarAlbum(albumNome, artista);
+        if (result) {
+
+            JOptionPane.showMessageDialog(this, "Album criado com sucesso!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao criar albun");
+
+        }
+
+    }//GEN-LAST:event_jButtonAddAlbumActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
