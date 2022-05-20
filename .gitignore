@@ -22,3 +22,4 @@ build/classes/com/spotify/view/ViewFactory.class
 *.xml
 *.xml
 *.xml
+nbproject/private/private.xml

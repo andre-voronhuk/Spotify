@@ -147,5 +147,9 @@ public class Controller {
 
         return new AlbunDAO().criarAlbun(new Albun(0, albumNome, artista));
     }
+    
+    public List<Usuario> buscarUsuarios() {
+        return new UsuarioDAO().buscarUsuarios();
+    }
 
 }

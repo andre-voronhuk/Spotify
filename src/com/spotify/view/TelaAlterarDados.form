@@ -29,11 +29,10 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jButtonCancelar" min="-2" pref="120" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="144" max="32767" attributes="0"/>
                       <Component id="jButtonConfirmar" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabelSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -41,8 +40,7 @@
                       <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jTextFieldNome" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextFieldLogin" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextFieldSenha" alignment="0" min="-2" pref="384" max="-2" attributes="0"/>
+                  <Component id="jPasswordField1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
@@ -60,20 +58,16 @@
               <Component id="jLabelNome" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTextFieldNome" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextFieldLogin" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabelSenha" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextFieldSenha" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,19 +90,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNome">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Login"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldLogin">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabelSenha">
       <Properties>
         <Property name="text" type="java.lang.String" value="Senha"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldSenha">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>
@@ -122,6 +107,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jPasswordField1">
     </Component>
   </SubComponents>
 </Form>
