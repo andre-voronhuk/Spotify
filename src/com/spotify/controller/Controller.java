@@ -4,9 +4,11 @@
  */
 package com.spotify.controller;
 
+import com.spotify.DAO.AlbunDAO;
 import com.spotify.DAO.MusicaDAO;
 import com.spotify.DAO.PlaylistDAO;
 import com.spotify.DAO.UsuarioDAO;
+import com.spotify.model.Albun;
 import com.spotify.model.Musica;
 import com.spotify.model.Playlist;
 import com.spotify.model.Usuario;
@@ -108,6 +110,11 @@ public class Controller {
     public Musica buscarMusica(String nome) {
         return new MusicaDAO().buscarMusica(nome);
     }
+    
+
+    public List<Musica> buscarMusicas() {
+        return new MusicaDAO().buscarMusicas();
+    }
 
     public List<Playlist> buscarPlaylist() {
 
@@ -123,13 +130,22 @@ public class Controller {
             return false;
             //ocorre quando o usuario fecha a janela de selecao de playlist
         }
+        try {
+            Musica musica = new MusicaDAO().buscarMusica(nomeMusica);
+            System.out.println("Musica:" + musica.getNome());
+            Playlist playlist = new PlaylistDAO().buscarPlaylist(nomePlaylist, user.getId());
+            System.out.println("Playlist: " + playlist.getNome());
+            boolean result = new PlaylistDAO().adicionarMusica(playlist, musica);
+            return result;
+        } catch (Exception e) {
 
-        Musica musica = new MusicaDAO().buscarMusica(nomeMusica);
-        System.out.println("Musica:" + musica.getNome());
-        Playlist playlist = new PlaylistDAO().buscarPlaylist(nomePlaylist, user.getId());
-        System.out.println("Playlist: " + playlist.getNome());
-        boolean result = new PlaylistDAO().adicionarMusica(playlist, musica);
-        return result;
+        }
+        return false;
+    }
+
+    public boolean criarAlbum(String albumNome, String artista) {
+
+        return new AlbunDAO().criarAlbun(new Albun(0, albumNome, artista));
     }
 
 }

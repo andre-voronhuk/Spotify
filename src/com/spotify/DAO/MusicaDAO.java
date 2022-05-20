@@ -89,17 +89,17 @@ public class MusicaDAO {
 
     }
 
-    public List<Musica> buscarMusica() {
-        String query = "SELECT * FROM musica";
+    public List<Musica> buscarMusicas() {
+        String query = "SELECT id,nome,artista,caminho,estilo,albun_id FROM musica";
         List<Musica> musicas = new ArrayList<>();
 
-        Musica musica = new Musica();
         try {
             PreparedStatement ps = conexao.prepareStatement(query);
 
             ResultSet result = ps.executeQuery();
 
             while (result.next()) {
+                Musica musica = new Musica();
 
                 musica.setId(result.getInt("id"));
                 musica.setNome(result.getString("nome"));

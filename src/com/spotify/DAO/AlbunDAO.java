@@ -22,11 +22,10 @@ public class AlbunDAO {
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, albun.getNome());
             ps.setString(2, albun.getArtista());
-            boolean result = ps.execute();
-
+            ps.execute();
             ps.close();
 
-            return result;
+            return true;
 
         } catch (Exception e) {
             System.out.println("ERRO AlbunDAO: " + e);

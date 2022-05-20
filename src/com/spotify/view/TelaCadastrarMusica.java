@@ -5,6 +5,11 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Musica;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,10 +21,14 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
      * Creates new form TelaCadastrarMusica
      */
     Controller controller;
-    
+
     public TelaCadastrarMusica(Controller controller) {
         this.controller = controller;
         initComponents();
+        this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);//maximiza a tela
+
+        atualizarMusicas();
+
     }
 
     /**
@@ -50,6 +59,7 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
         jButtonAdicionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelID = new javax.swing.JLabel();
+        jButtonLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Música");
@@ -63,15 +73,32 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
         jTableMusicas.setAutoCreateRowSorter(true);
         jTableMusicas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome da Música", "Caminho"
+                "Id", "Nome", "Artista", "Estilo", "Caminho", "Album"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMusicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMusicasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableMusicas);
 
         jLabelCaminho.setText("Caminho");
@@ -90,6 +117,11 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
 
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonAlterar.setText("Alterar");
@@ -104,6 +136,14 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
 
         jLabelID.setText("0");
 
+        jButtonLimpar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,11 +156,13 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
                     .addComponent(jTextFieldEstilo, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldCaminho, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxAlbum, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -168,13 +210,14 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
                 .addComponent(jLabelAlbum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonAlterar)
-                    .addComponent(jButtonExcluir))
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonLimpar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
@@ -184,10 +227,82 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void atualizarMusicas() {
 
+        DefaultTableModel tabela = (DefaultTableModel) jTableMusicas.getModel();
+        tabela.setNumRows(0);
+        List<Musica> musicas = this.controller.buscarMusicas();
+
+        int i = 0;
+
+        for (Musica musica : musicas) {
+
+            tabela.insertRow(i, new Object[]{
+                musica.getId(),
+                musica.getNome(),
+                musica.getArtista(),
+                musica.getEstilo(),
+                musica.getCaminho(),
+                musica.getAlbunId()
+
+            });
+            i++;
+
+        }
+
+        jTableMusicas.setModel(tabela);
+
+    }
+
+    private void selecionarLinha(int selectedRow) {
+        if (selectedRow < 0) {
+            jTableMusicas.setRowSelectionInterval(0, 0);
+        }
+
+        String nome = (String) jTableMusicas.getValueAt(selectedRow, 1);
+        alterarMusica(nome);
+    }
+
+    private void alterarMusica(String nome) {
+
+        Musica musica = this.controller.buscarMusica(nome);
+        int id = musica.getId();
+        jLabelID.setText(String.valueOf(id));
+        jTextFieldNome.setText(musica.getNome());
+        jTextFieldArtista.setText(musica.getArtista());
+        jTextFieldEstilo.setText(musica.getEstilo());
+        jTextFieldCaminho.setText(musica.getCaminho());
+        System.out.println("IMPLEMENTE A LISTA DE ALBUM");
+
+    }
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.controller.abrirTela(this, "administrador");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTableMusicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMusicasMouseClicked
+        // TODO add your handling code here:
+
+        selecionarLinha(jTableMusicas.getSelectedRow());
+    }//GEN-LAST:event_jTableMusicasMouseClicked
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        // TODO add your handling code here:
+
+        jLabelID.setText("0");
+        jTextFieldNome.setText("");
+        jTextFieldArtista.setText("");
+        jTextFieldEstilo.setText("");
+        jTextFieldCaminho.setText("");
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        // TODO add your handling code here:
+
+        if (jLabelID.getText() == "0") {
+            // criar  funcionalidade criar Musica
+        }
+
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -195,6 +310,7 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxAlbum;
     private javax.swing.JLabel jLabel1;
@@ -211,4 +327,5 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEstilo;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -626,11 +626,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
                 jButtonAdicionarNaPlaylistActionPerformed(evt);
             }
-            System.out.println("Adicionar " + nomeMusica + " em " + playlist);
-            boolean result = this.controller.adicionarMusicaEmPlaylist(nomeMusica, playlist);
+            if (playlist != null) {
 
-            if (result) {
-                JOptionPane.showMessageDialog(this, nomeMusica + " foi adicionada em " + playlist);
+                System.out.println("Adicionar " + nomeMusica + " em " + playlist);
+                boolean result = this.controller.adicionarMusicaEmPlaylist(nomeMusica, playlist);
+
+                if (result) {
+                    JOptionPane.showMessageDialog(this, nomeMusica + " foi adicionada em " + playlist);
+                }
             }
         }
 
