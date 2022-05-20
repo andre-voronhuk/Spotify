@@ -5,6 +5,10 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import com.spotify.model.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,10 +20,50 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
      * Creates new form TelaGerenciarUsuarios
      */
     Controller controller;
+    List<Usuario> usuarios;
     
     public TelaGerenciarUsuarios(Controller controller) {
         initComponents();
         this.controller = controller;
+        this.usuarios = controller.buscarUsuarios();
+        
+        this.listarUsuarios();
+    }
+    
+    private void listarUsuarios() {
+        DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
+        modelo.setNumRows(0);
+        
+        for(Usuario usuario : usuarios) {
+            
+            Object[] dados = new Object[] {
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getLogin(),
+                "********",
+            };
+            
+            modelo.addRow(dados);
+        }
+        
+        jTableUsuarios.setModel(modelo);
+    }
+    
+    private void atualizarDados(int selectedRow) {
+        if(selectedRow == -1) {
+            selectedRow = 0;
+        }
+        
+        
+        int id = (int) jTableUsuarios.getValueAt(selectedRow, 0);
+        String nome = (String) jTableUsuarios.getValueAt(selectedRow, 1);
+        String email = (String) jTableUsuarios.getValueAt(selectedRow, 2);
+        
+        jLabelID.setText(Integer.toString(id));
+        jTextFieldNome.setText(nome);
+        jTextFieldLogin.setText(email);
+        
+        
     }
 
     /**
@@ -70,15 +114,32 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nome", "Login", "Senha"
+                "ID", "Nome", "E-mail", "Senha"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableUsuarios);
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -91,6 +152,11 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jButtonAdicionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,6 +227,14 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.controller.abrirTela(this, "administrador");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
+        atualizarDados(jTableUsuarios.getSelectedRow());
+    }//GEN-LAST:event_jTableUsuariosMouseClicked
+
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        atualizarDados(jTableUsuarios.getSelectedRow());
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

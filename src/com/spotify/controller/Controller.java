@@ -131,5 +131,9 @@ public class Controller {
         boolean result = new PlaylistDAO().adicionarMusica(playlist, musica);
         return result;
     }
+    
+    public List<Usuario> buscarUsuarios() {
+        return new UsuarioDAO().buscarUsuarios();
+    }
 
 }
