@@ -12,6 +12,7 @@ import jaco.mp3.player.MP3Player;
 
 import java.io.File;
 
+
 public class PlayMP3 extends Thread {
 
     public static boolean tocando = false;
@@ -35,6 +36,7 @@ public class PlayMP3 extends Thread {
             if (tocando == false) {
                 mp3Player.addToPlayList(f);
                 tocando = true;
+
                 mp3Player.play();
 
             } else {
@@ -42,9 +44,7 @@ public class PlayMP3 extends Thread {
                 mp3Player.pause();
 
             }
-            //while (!mp3Player.isStopped()) {
-            //    //Thread.sleep(5000);
-            //}
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -52,10 +52,13 @@ public class PlayMP3 extends Thread {
     }
 
     public void next() {
+        System.out.println(mp3Player.getPlayList().get(0));
         mp3Player.skipForward();
+
     }
 
     public void back() {
         mp3Player.skipBackward();
     }
+
 }

@@ -333,7 +333,7 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         // TODO add your handling code here:
-
+        limparTela();
 
     }//GEN-LAST:event_jButtonLimparActionPerformed
     private void limparTela() {
@@ -353,7 +353,7 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
         String caminho = jTextFieldCaminho.getText();
         String estilo = jTextFieldEstilo.getText();
         Integer album = albumNomeId.get(jComboBoxAlbum.getSelectedItem());
-        System.out.println("Album Id:" + album);
+        
         Musica musica = new Musica(Integer.parseInt(id), nome, artista, caminho, album, estilo);
 
         if (id.isEmpty() || nome.isEmpty() || artista.isEmpty() || caminho.isEmpty()) {

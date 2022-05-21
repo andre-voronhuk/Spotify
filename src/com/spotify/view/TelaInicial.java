@@ -133,7 +133,7 @@ public class TelaInicial extends javax.swing.JFrame {
         if (nomeMusica == null) {
             jLabelNomeMusica.setText("Nenhuma Musica Selecionada");
             jLabelNomeArtista.setText("***");
-
+            jLabelDuracao.setText("0:00");
             PlayMP3.mp3Player.stop();
             PlayMP3.tocando = false;
         } else {
@@ -142,6 +142,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
             jLabelNomeMusica.setText(musica.getNome());
             jLabelNomeArtista.setText(musica.getArtista());
+            jLabelEstilo.setText(musica.getEstilo());
+            jLabelDuracao.setText(this.controller.atualizarDuracao(musica.getCaminho()));
 
         }
     }
@@ -168,8 +170,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void guardarMusicasTocadas(String nomeMusica) {
         this.musicasTocadas.add(this.musicasTocadas.size(), nomeMusica);
-        System.out.println("Guardado:" + nomeMusica);
-        System.out.println(musicasTocadas);
+
     }
 
     private void proximaMusica() {
@@ -251,14 +252,15 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonPlay = new javax.swing.JButton();
         jButtonAvancar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
-        jProgressBar = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListMusicas = new javax.swing.JList<>();
         jLabelNomeMusica = new javax.swing.JLabel();
         jLabelNomeArtista = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelDuracao = new javax.swing.JLabel();
         jButtonAdicionarNaPlaylist = new javax.swing.JButton();
         jLabelNomePlaylist = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelEstilo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -289,6 +291,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Spotify - Home");
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -345,8 +352,8 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabelNomeArtista.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabelNomeArtista.setText("Nome do Artista");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel4.setText("2:30");
+        jLabelDuracao.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabelDuracao.setText("2:30");
 
         jButtonAdicionarNaPlaylist.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAdicionarNaPlaylist.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -358,6 +365,8 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Estilo:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -367,22 +376,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonAdicionarNaPlaylist))
-                            .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelNomeArtista)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(31, 31, 31))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -396,6 +389,27 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabelNomePlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelNomeMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(277, 277, 277)
+                                .addComponent(jButtonAdicionarNaPlaylist)
+                                .addGap(23, 23, 23))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelNomeArtista)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelDuracao)
+                                .addGap(31, 31, 31))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelEstilo)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,9 +427,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNomeArtista)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelDuracao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelEstilo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -620,7 +636,6 @@ public class TelaInicial extends javax.swing.JFrame {
             playlist = exibirAdicionarPlaylists();
 
             if (playlist == null) {
-                System.out.println("Voce nao tem playlist");
 
                 JOptionPane.showMessageDialog(this, "Voce ainda nao possui nenhuma playlist!\nredirecionando para criação de playlist...");
                 jButton1ActionPerformed(evt);
@@ -628,7 +643,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             if (playlist != null) {
 
-                System.out.println("Adicionar " + nomeMusica + " em " + playlist);
                 boolean result = this.controller.adicionarMusicaEmPlaylist(nomeMusica, playlist);
 
                 if (result) {
@@ -672,7 +686,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jListPlaylistsValueChanged
 
     private void jButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdministradorActionPerformed
-        this.controller.abrirTela(this, "administrador");
+        this.setVisible(false);
+        this.controller.abrirTela(null, "administrador");
     }//GEN-LAST:event_jButtonAdministradorActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
@@ -684,6 +699,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         } else {
             if (PlayMP3.mp3Player.isPaused()) {
+
                 PlayMP3.mp3Player.play();
 
             } else {
@@ -708,7 +724,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         // TODO add your handling code here:
-
+        if (!PlayMP3.tocando) {
+            PlayMP3.mp3Player.play();
+            PlayMP3.tocando = true;
+        }
         if (jListFila.getModel().getSize() > 1) {
             proximaMusica();
         } else {
@@ -735,6 +754,10 @@ public class TelaInicial extends javax.swing.JFrame {
         atualizarPlaylists();
     }//GEN-LAST:event_jButtonExcluirPlaylistActionPerformed
 
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+
+    }//GEN-LAST:event_formMouseMoved
+
     /**
      * @param args the command line arguments
      */
@@ -752,7 +775,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSair;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelDuracao;
+    private javax.swing.JLabel jLabelEstilo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNomeArtista;
     private javax.swing.JLabel jLabelNomeMusica;
@@ -764,7 +789,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelUsuario;
-    private javax.swing.JProgressBar jProgressBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -132,7 +132,13 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddUsuariosActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
-        this.controller.abrirTela(this, "home");
+
+        this.controller.exibirHome();
+        this.dispose();
+        //foi preciso fazer dessa maneira para que nao fosse perdido o estado
+        // do player (musica atual, fila, etc)
+        // a funcao do controller abrirTela, abre uma nova instancia e a fila é perdida
+        // da maneira acima, a tela home fica apenas invisivel.
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
     private void jButtonAddMusicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMusicaActionPerformed
