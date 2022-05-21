@@ -8,6 +8,8 @@ import com.spotify.controller.Controller;
 import com.spotify.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,49 +23,69 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
      */
     Controller controller;
     List<Usuario> usuarios;
-    
+    boolean funcao;
+
     public TelaGerenciarUsuarios(Controller controller) {
         initComponents();
         this.controller = controller;
         this.usuarios = controller.buscarUsuarios();
-        
+
         this.listarUsuarios();
     }
-    
+
     private void listarUsuarios() {
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
         modelo.setNumRows(0);
-        
-        for(Usuario usuario : usuarios) {
-            
-            Object[] dados = new Object[] {
+
+        for (Usuario usuario : usuarios) {
+
+            Object[] dados = new Object[]{
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getLogin(),
                 "********",
-            };
-            
+                usuario.getFuncao(),};
+
             modelo.addRow(dados);
         }
-        
+
         jTableUsuarios.setModel(modelo);
     }
-    
+
     private void atualizarDados(int selectedRow) {
-        if(selectedRow == -1) {
+        if (selectedRow == -1) {
             selectedRow = 0;
         }
-        
-        
+
         int id = (int) jTableUsuarios.getValueAt(selectedRow, 0);
         String nome = (String) jTableUsuarios.getValueAt(selectedRow, 1);
         String email = (String) jTableUsuarios.getValueAt(selectedRow, 2);
-        
+        funcao = (boolean) jTableUsuarios.getValueAt(selectedRow, 4);
+
         jLabelID.setText(Integer.toString(id));
         jTextFieldNome.setText(nome);
         jTextFieldLogin.setText(email);
-        
-        
+        if (funcao) {
+            jLabelFuncao.setText("Admin");
+        } else {
+            jLabelFuncao.setText("");
+        }
+
+    }
+
+    private void promoverUsuario(int id, boolean funcaoNova) {
+        if (id > 0) {
+            boolean result = controller.alterarFuncao(id, !funcaoNova);
+
+            if (result) {
+                JOptionPane.showMessageDialog(null, "Usuario promovido para Administrador com sucesso!", "Sucesso!", 1);
+                this.controller.abrirTela(this, "gerenciarUsuarios" );
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao alterar dados, tente novamente mais tarde.", "Erro", 2);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um usuário para promover", "Erro", 3);
+        }
     }
 
     /**
@@ -83,13 +105,14 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextFieldLogin = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldSenha = new javax.swing.JTextField();
         jLabelID = new javax.swing.JLabel();
-        jToggleButtonPromover = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableUsuarios = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
         jButtonAdicionar = new javax.swing.JButton();
+        jPasswordFieldSenha = new javax.swing.JPasswordField();
+        jButtonPromover = new javax.swing.JButton();
+        jLabelFuncao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +121,11 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ID:");
 
@@ -109,22 +137,19 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jLabelID.setText("0");
 
-        jToggleButtonPromover.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jToggleButtonPromover.setText("Promover");
-
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "E-mail", "Senha"
+                "ID", "Nome", "E-mail", "Senha", "Admin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,6 +166,10 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jTableUsuarios);
+        if (jTableUsuarios.getColumnModel().getColumnCount() > 0) {
+            jTableUsuarios.getColumnModel().getColumn(4).setMinWidth(40);
+            jTableUsuarios.getColumnModel().getColumn(4).setMaxWidth(40);
+        }
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -157,6 +186,17 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                 jButtonAdicionarActionPerformed(evt);
             }
         });
+
+        jButtonPromover.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonPromover.setText("Promover");
+        jButtonPromover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPromoverActionPerformed(evt);
+            }
+        });
+
+        jLabelFuncao.setForeground(new java.awt.Color(0, 204, 0));
+        jLabelFuncao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,16 +216,18 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelID))
+                        .addComponent(jLabelID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jToggleButtonPromover, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldSenha)
+                        .addGap(47, 47, 47)
+                        .addComponent(jButtonPromover, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextFieldLogin)
-                    .addComponent(jTextFieldNome))
+                    .addComponent(jTextFieldNome)
+                    .addComponent(jPasswordFieldSenha))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -194,7 +236,8 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabelID))
+                    .addComponent(jLabelID)
+                    .addComponent(jLabelFuncao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,12 +249,12 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonExcluir)
                     .addComponent(jButtonAlterar)
-                    .addComponent(jToggleButtonPromover))
+                    .addComponent(jButtonPromover))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -236,22 +279,57 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         atualizarDados(jTableUsuarios.getSelectedRow());
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        int id = Integer.parseInt(jLabelID.getText());
+        String nome = jTextFieldNome.getText();
+        String login = jTextFieldLogin.getText();
+        char[] senhaChar = jPasswordFieldSenha.getPassword();
+
+        String senha = "";
+
+        for (char c : senhaChar) {
+            senha = senha + c;
+        }
+
+        if (nome.isEmpty() || login.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Cadastro", 2);
+            return;
+        }
+
+        Usuario user = new Usuario(id, nome, false, login, senha);
+        boolean result = new Controller().alterarDadosUsuario(user);
+
+        if (result) {
+            JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso!", "Sucesso!", 1);
+            this.controller.abrirTela(this, "gerenciarUsuarios" );
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar dados, tente novamente mais tarde.", "Erro", 2);
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonPromoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromoverActionPerformed
+        int id = Integer.parseInt(jLabelID.getText());
+
+        promoverUsuario(id, funcao);
+    }//GEN-LAST:event_jButtonPromoverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonPromover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelFuncao;
     private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelNome;
+    private javax.swing.JPasswordField jPasswordFieldSenha;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldSenha;
-    private javax.swing.JToggleButton jToggleButtonPromover;
     // End of variables declaration//GEN-END:variables
 }

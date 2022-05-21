@@ -224,4 +224,40 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     }
 
+    public boolean alterarDados(int idUsuario, String nome, String login, String senha) {
+        String query = "UPDATE usuario SET nome=?, login=?, senha=? WHERE id=?";
+        senha = FuncaoHash.gerarHash(senha);
+
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setString(1, nome);
+            ps.setString(2, login);
+            ps.setString(3, senha);
+            ps.setInt(4, idUsuario);
+            ps.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("SQL erro ao alterar senha");
+            return false;
+        }
+    }
+
+    public boolean promoverUsuario(int idUsuario, boolean funcao) {
+        String query = "UPDATE usuario SET funcao=? WHERE id=?";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ps.setBoolean(1, funcao);
+            ps.setInt(2, idUsuario);
+            ps.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("SQL erro ao alterar senha");
+            return false;
+        }
+    }
+
 }
