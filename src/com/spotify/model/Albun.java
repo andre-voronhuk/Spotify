@@ -23,6 +23,10 @@ public class Albun {
 
     }
 
+    public Albun() {
+       
+    }
+
     public int getId() {
         return id;
     }
@@ -38,5 +42,18 @@ public class Albun {
     public boolean criarAlbun() {
         return new AlbunDAO().criarAlbun(this);
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setArtista(String artista) {
+        this.artista = artista;
+    }
+    
 
 }

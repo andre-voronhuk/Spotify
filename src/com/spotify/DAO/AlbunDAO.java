@@ -1,8 +1,13 @@
 package com.spotify.DAO;
 
 import com.spotify.model.Albun;
+import com.spotify.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -52,6 +57,33 @@ public class AlbunDAO {
             System.out.println("ERRO ao excluir albun: " + e);
             return false;
         }
+
+    }
+
+    public List<Albun> buscarAlbuns() {
+
+        String query = "SELECT id, nome,artista FROM albun";
+
+        try {
+            List<Albun> albuns = new ArrayList<>();
+            PreparedStatement ps = conexao.prepareStatement(query);
+            ResultSet dados = ps.executeQuery();
+
+            while (dados.next()) {
+
+                Albun u = new Albun();
+                u.setId(dados.getInt(1));
+                u.setNome(dados.getString(2));
+                u.setArtista(dados.getString(3));
+
+                albuns.add(u);
+            }
+            return albuns;
+        } catch (SQLException e) {
+            System.out.println("ERRO AO RECUPERAR:" + e);
+        }
+
+        return null;
 
     }
 }
