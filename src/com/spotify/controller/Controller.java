@@ -93,6 +93,18 @@ public class Controller {
 
         return result;
     }
+    
+    public boolean alterarDadosUsuario(Usuario user) {
+        boolean result = new UsuarioDAO().alterarDados(user.getId(), user.getNome(), user.getLogin(), user.getSenha());
+        
+        return result;
+    }
+    
+    public boolean alterarFuncao(int id, boolean funcao) {
+        boolean result = new UsuarioDAO().promoverUsuario(id, funcao);
+        
+        return result;
+    }
 
     public Usuario getUser() {
         return this.user;
