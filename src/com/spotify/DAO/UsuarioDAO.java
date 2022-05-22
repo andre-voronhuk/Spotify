@@ -5,6 +5,7 @@
 package com.spotify.DAO;
 
 import com.spotify.DAO.Interfaces.IUsuarioDAO;
+import com.spotify.model.Musica;
 import com.spotify.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -224,16 +225,14 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     }
 
-    public boolean alterarDados(int idUsuario, String nome, String login, String senha) {
-        String query = "UPDATE usuario SET nome=?, login=?, senha=? WHERE id=?";
-        senha = FuncaoHash.gerarHash(senha);
+    public boolean alterarDados(int idUsuario, String nome, String login) {
+        String query = "UPDATE usuario SET nome=?, login=? WHERE id=?";
 
         try {
             PreparedStatement ps = conexao.prepareStatement(query);
             ps.setString(1, nome);
             ps.setString(2, login);
-            ps.setString(3, senha);
-            ps.setInt(4, idUsuario);
+            ps.setInt(3, idUsuario);
             ps.execute();
 
             return true;
@@ -259,5 +258,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             return false;
         }
     }
+
+   
 
 }

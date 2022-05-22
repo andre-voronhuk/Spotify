@@ -62,7 +62,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         jLabelConfirmarSenha.setText("Confirmar Senha");
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Voltar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);

@@ -125,7 +125,7 @@ public class TelaCadastrarMusica extends javax.swing.JFrame {
         jComboBoxAlbum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Voltar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);

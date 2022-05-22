@@ -5,15 +5,16 @@
 package com.spotify.view;
 
 import com.spotify.controller.Controller;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author renea
  */
 public class TelaAlterarSenha extends javax.swing.JFrame {
-
+    
     Controller controller;
-
+    
     public TelaAlterarSenha(Controller controller) {
         this.controller = controller;
         initComponents();
@@ -29,41 +30,64 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonConfirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        inputSenhaConfirm = new javax.swing.JPasswordField();
+        inputSenha1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar Senha");
 
         jLabel1.setText("E-mail");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldLoginActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Senha");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Confirmar Senha");
+
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jButtonConfirmarActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Confirmar Senha");
-
-        jButton1.setText("Confirmar");
-
-        jButton2.setText("Cancelar");
+        jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        inputSenhaConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        inputSenhaConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSenhaConfirmActionPerformed(evt);
+            }
+        });
+        inputSenhaConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputSenhaConfirmKeyPressed(evt);
+            }
+        });
+
+        inputSenha1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        inputSenha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSenha1ActionPerformed(evt);
+            }
+        });
+        inputSenha1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputSenha1KeyPressed(evt);
             }
         });
 
@@ -77,13 +101,13 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputSenhaConfirm, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputSenha1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,47 +116,92 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inputSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputSenhaConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonConfirmar)
                     .addComponent(jButton2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFieldLoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
         new Controller().abrirTelaLogin();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        // TODO add your handling code here:
+        char[] senha1Char = inputSenha1.getPassword();
+        String senha = "";
+        for (char c : senha1Char) {
+            senha = senha + c;
+            
+        }
+        char[] senhaChar = inputSenhaConfirm.getPassword();
+        String confirmSenha = "";
+        for (char c : senhaChar) {
+            confirmSenha = confirmSenha + c;
+            
+        }
+        String login = jTextFieldLogin.getText();
+        if (senha.equals(confirmSenha)) {
+            try {
+                
+                this.controller.alterarSenha(login, senha);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Esse usuario nao existe");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "As senhas nao coincidem");
+            
+        }
+
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void inputSenhaConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSenhaConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSenhaConfirmActionPerformed
+
+    private void inputSenhaConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSenhaConfirmKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == 10) {
+            jButtonConfirmarActionPerformed(null);
+            
+        }
+    }//GEN-LAST:event_inputSenhaConfirmKeyPressed
+
+    private void inputSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSenha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSenha1ActionPerformed
+
+    private void inputSenha1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSenha1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSenha1KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPasswordField inputSenha1;
+    private javax.swing.JPasswordField inputSenhaConfirm;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldLogin;
     // End of variables declaration//GEN-END:variables
 }

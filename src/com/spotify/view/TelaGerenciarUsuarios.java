@@ -28,12 +28,12 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
     public TelaGerenciarUsuarios(Controller controller) {
         initComponents();
         this.controller = controller;
-        this.usuarios = controller.buscarUsuarios();
 
         this.listarUsuarios();
     }
 
     private void listarUsuarios() {
+        this.usuarios = controller.buscarUsuarios();
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
         modelo.setNumRows(0);
 
@@ -60,15 +60,17 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         int id = (int) jTableUsuarios.getValueAt(selectedRow, 0);
         String nome = (String) jTableUsuarios.getValueAt(selectedRow, 1);
         String email = (String) jTableUsuarios.getValueAt(selectedRow, 2);
-        funcao = (boolean) jTableUsuarios.getValueAt(selectedRow, 4);
+        boolean funcao = (boolean) jTableUsuarios.getValueAt(selectedRow, 4);
 
         jLabelID.setText(Integer.toString(id));
         jTextFieldNome.setText(nome);
         jTextFieldLogin.setText(email);
         if (funcao) {
             jLabelFuncao.setText("Admin");
+            jButtonPromover.setText("Rebaixar");
         } else {
             jLabelFuncao.setText("");
+            jButtonPromover.setText("Promover");
         }
 
     }
@@ -78,14 +80,28 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
             boolean result = controller.alterarFuncao(id, !funcaoNova);
 
             if (result) {
-                JOptionPane.showMessageDialog(null, "Usuario promovido para Administrador com sucesso!", "Sucesso!", 1);
-                this.controller.abrirTela(this, "gerenciarUsuarios" );
+                if (!funcaoNova) {
+                    JOptionPane.showMessageDialog(null, "Usuario promovido para Administrador com sucesso!", "Sucesso!", 1);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario rebaixado para Usuario comums com sucesso!", "Sucesso!", 1);
+
+                }
+                listarUsuarios();
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao alterar dados, tente novamente mais tarde.", "Erro", 2);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um usuário para promover", "Erro", 3);
         }
+    }
+
+    private void limparTela() {
+        jLabelID.setText("0");
+        jLabelFuncao.setText("");
+        jTextFieldNome.setText("");
+        jTextFieldLogin.setText("");
+        jPasswordFieldSenha.setText("");
     }
 
     /**
@@ -118,9 +134,14 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jButtonExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonAlterar.setText("Alterar");
+        jButtonAlterar.setText("Salvar");
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAlterarActionPerformed(evt);
@@ -172,7 +193,7 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         }
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Voltar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
@@ -180,7 +201,7 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         });
 
         jButtonAdicionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.setText("Limpar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarActionPerformed(evt);
@@ -276,14 +297,16 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableUsuariosMouseClicked
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        atualizarDados(jTableUsuarios.getSelectedRow());
+        limparTela();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+
         int id = Integer.parseInt(jLabelID.getText());
         String nome = jTextFieldNome.getText();
         String login = jTextFieldLogin.getText();
         char[] senhaChar = jPasswordFieldSenha.getPassword();
+        boolean funcao = jLabelFuncao.getText() == "Admin";
 
         String senha = "";
 
@@ -291,27 +314,50 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
             senha = senha + c;
         }
 
-        if (nome.isEmpty() || login.isEmpty() || senha.isEmpty()) {
+        if (nome.isEmpty() || login.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Cadastro", 2);
             return;
         }
-
-        Usuario user = new Usuario(id, nome, false, login, senha);
-        boolean result = new Controller().alterarDadosUsuario(user);
-
-        if (result) {
-            JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso!", "Sucesso!", 1);
-            this.controller.abrirTela(this, "gerenciarUsuarios" );
+        boolean result = true;
+        Usuario user = new Usuario(id, nome, funcao, login, senha);
+        if (id == 0) {
+            result = new Controller().cadastrarUsuario(user);
         } else {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar dados, tente novamente mais tarde.", "Erro", 2);
+            result = new Controller().alterarDadosUsuario(user);
         }
+        if (!senha.isEmpty()) {
+            this.controller.alterarSenha(login, senha);
+
+        }
+        if (result) {
+            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso!", "Sucesso!", 1);
+            listarUsuarios();
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar a operação, tente novamente mais tarde.", "Erro", 2);
+        }
+        limparTela();
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPromoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromoverActionPerformed
         int id = Integer.parseInt(jLabelID.getText());
+        if (id > 0) {
+            boolean funcao = jLabelFuncao.getText() == "Admin";
+            promoverUsuario(id, funcao);
 
-        promoverUsuario(id, funcao);
+        }
+        limparTela();
     }//GEN-LAST:event_jButtonPromoverActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        if (Integer.parseInt(jLabelID.getText()) > 0) {
+            this.controller.excluirUsuario(jLabelID.getText());
+            JOptionPane.showMessageDialog(this, "Usuario Exluido!");
+            this.listarUsuarios();
+        }
+        limparTela();
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -81,9 +81,11 @@ public class Controller {
             this.telaAtual.dispose();
         }
     }
-    public void exibirHome(){
+
+    public void exibirHome() {
         this.telaInicial.setVisible(true);
     }
+
     public boolean fazerLogin(String login, String senha) {
         boolean result = new UsuarioDAO().fazerLogin(login, senha);
 
@@ -106,9 +108,14 @@ public class Controller {
     }
 
     public boolean alterarDadosUsuario(Usuario user) {
-        boolean result = new UsuarioDAO().alterarDados(user.getId(), user.getNome(), user.getLogin(), user.getSenha());
+        //Essa funcao nao altera senha! use o metodo proprio para isso.
+        boolean result = new UsuarioDAO().alterarDados(user.getId(), user.getNome(), user.getLogin());
 
         return result;
+    }
+
+    public boolean alterarSenha(String login, String senha) {
+        return new UsuarioDAO().alterarSenha(login, senha);
     }
 
     public boolean alterarFuncao(int id, boolean funcao) {
@@ -178,6 +185,10 @@ public class Controller {
         return new AlbunDAO().buscarAlbuns();
     }
 
+    public boolean excluirUsuario(String text) {
+        return new UsuarioDAO().excluirUsuario(Integer.parseInt(text));
+    }
+
     public boolean criarMusica(Musica musica) {
         return new MusicaDAO().criarMusica(musica);
     }
@@ -219,6 +230,10 @@ public class Controller {
         }
         return "0:00";
 
+    }
+
+    public List<Musica> buscarMusicasNome(String buscaStr) {
+        return new MusicaDAO().buscarMusicasNome(buscaStr);
     }
 
 }

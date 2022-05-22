@@ -12,14 +12,12 @@ import others.ComponentesSwing;
  */
 public class ViewFactory {
 
- 
-
     public ViewFactory() {
 
     }
 
     public JFrame createView(String name, Controller controller) {
-        
+
         JFrame frame;
         Color minhaCor = new Color(60, 63, 65);
         Color colorLabel = new Color(187, 187, 187);
@@ -27,6 +25,7 @@ public class ViewFactory {
         switch (name) {
             case "login":
                 frame = new TelaLogin(controller);
+                frame.setResizable(false);
                 break;
 
             case "home":
@@ -35,30 +34,36 @@ public class ViewFactory {
 
             case "cadastro":
                 frame = new TelaCadastro(controller);
+                frame.setResizable(false);
                 break;
 
             case "senha":
                 frame = new TelaAlterarSenha(controller);
+                frame.setResizable(false);
                 break;
-                
+
             case "administrador":
                 frame = new TelaAdministrador(controller);
+                frame.setResizable(false);
                 break;
-                
+
             case "adicionarMusica":
                 frame = new TelaCadastrarMusica(controller);
                 break;
-                
+
             case "gerenciarUsuarios":
                 frame = new TelaGerenciarUsuarios(controller);
+                frame.setResizable(false);
                 break;
-                
+
             case "telaUsuario":
                 frame = new TelaUsuario(controller);
+                frame.setResizable(false);
                 break;
-                
+
             case "alterarDados":
                 frame = new TelaAlterarDados(controller);
+                frame.setResizable(false);
                 break;
 
             default:

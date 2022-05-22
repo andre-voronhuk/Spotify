@@ -26,7 +26,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         this.usuarioLogado = controller.getUser();
 
         jLabelNome.setText(usuarioLogado.getNome());
-        jLabelLogin.setText(usuarioLogado.getLogin());
+
     }
 
     /**
@@ -39,20 +39,17 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelNome = new javax.swing.JLabel();
-        jLabelLogin = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButtonAddMusica = new javax.swing.JButton();
         jButtonAddAlbum = new javax.swing.JButton();
         jButtonAddUsuarios = new javax.swing.JButton();
         jButtonFechar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelNome.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelNome.setText("Nome");
-
-        jLabelLogin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelLogin.setText("login");
 
         jButtonAddMusica.setText("Gerenciar Músicas");
         jButtonAddMusica.addActionListener(new java.awt.event.ActionListener() {
@@ -75,53 +72,58 @@ public class TelaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jButtonFechar.setText("Fechar");
+        jButtonFechar.setText("Voltar");
         jButtonFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFecharActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel1.setText("Painel de Administrador");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jButtonAddMusica)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonAddAlbum)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonAddUsuarios))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonAddMusica)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAddAlbum)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAddUsuarios)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAddAlbum)
                     .addComponent(jButtonAddUsuarios)
+                    .addComponent(jButtonAddAlbum)
                     .addComponent(jButtonAddMusica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jButtonFechar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -167,7 +169,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddMusica;
     private javax.swing.JButton jButtonAddUsuarios;
     private javax.swing.JButton jButtonFechar;
-    private javax.swing.JLabel jLabelLogin;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

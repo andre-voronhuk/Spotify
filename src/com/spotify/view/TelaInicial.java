@@ -35,6 +35,7 @@ public class TelaInicial extends javax.swing.JFrame {
     List<Playlist> playlists;
     PlayMP3 player = new PlayMP3();
     List<String> musicasTocadas = new ArrayList<>();
+    String buscaStr;
 
     TelaInicial(Controller controller) {
         initComponents();
@@ -76,6 +77,9 @@ public class TelaInicial extends javax.swing.JFrame {
         List<Musica> musicas = controller.buscarMusicasPlaylist(nomePlaylist);
         if (nomePlaylist == "Todas as Musicas") {
             musicas = controller.buscarMusicasPlaylist("Todas as Musicas");
+        }
+        if (nomePlaylist =="Busca") {
+            musicas = controller.buscarMusicasNome(this.buscaStr);
         }
         DefaultListModel model = new DefaultListModel<>();
         int i = 0;
@@ -444,6 +448,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonBuscar.setBackground(new java.awt.Color(51, 51, 51));
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jListPlaylists.setBackground(new java.awt.Color(61, 61, 61));
         jListPlaylists.setModel(new javax.swing.AbstractListModel<String>() {
@@ -724,6 +733,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         // TODO add your handling code here:
+
         if (!PlayMP3.tocando) {
             PlayMP3.mp3Player.play();
             PlayMP3.tocando = true;
@@ -745,7 +755,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPerfilActionPerformed
-        this.controller.abrirTela(this, "telaUsuario");
+        this.setVisible(false);
+        this.controller.abrirTela(null, "telaUsuario");
+
     }//GEN-LAST:event_jButtonPerfilActionPerformed
 
     private void jButtonExcluirPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirPlaylistActionPerformed
@@ -757,6 +769,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
 
     }//GEN-LAST:event_formMouseMoved
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        String busca = JOptionPane.showInputDialog("Informe nome da musica/artista");
+        this.buscaStr = busca;
+        atualizarMusicas("Busca");
+        
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     /**
      * @param args the command line arguments
