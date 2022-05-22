@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
  * @author renea
  */
 public class TelaAlterarSenha extends javax.swing.JFrame {
-    
+
     Controller controller;
-    
+
     public TelaAlterarSenha(Controller controller) {
         this.controller = controller;
         initComponents();
@@ -150,25 +150,34 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
         String senha = "";
         for (char c : senha1Char) {
             senha = senha + c;
-            
+
         }
         char[] senhaChar = inputSenhaConfirm.getPassword();
         String confirmSenha = "";
         for (char c : senhaChar) {
             confirmSenha = confirmSenha + c;
-            
+
         }
         String login = jTextFieldLogin.getText();
+
         if (senha.equals(confirmSenha)) {
             try {
-                
-                this.controller.alterarSenha(login, senha);
+
+                boolean result = this.controller.alterarSenha(login, senha);
+
+                if (result) {
+
+                    JOptionPane.showMessageDialog(this, "Senha Atualizada!");
+                    this.controller.abrirTela(this, "login");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario Inexistente");
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Esse usuario nao existe");
             }
         } else {
             JOptionPane.showMessageDialog(this, "As senhas nao coincidem");
-            
+
         }
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
@@ -181,7 +190,7 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == 10) {
             jButtonConfirmarActionPerformed(null);
-            
+
         }
     }//GEN-LAST:event_inputSenhaConfirmKeyPressed
 

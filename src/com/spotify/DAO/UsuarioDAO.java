@@ -196,7 +196,9 @@ public class UsuarioDAO implements IUsuarioDAO {
             if (result.next()) {
                 logado = true;
                 id = result.getInt(1);
-
+                if (id < 1) {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -258,7 +260,5 @@ public class UsuarioDAO implements IUsuarioDAO {
             return false;
         }
     }
-
-   
 
 }
