@@ -154,6 +154,8 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         jLabel3.setText("Login");
 
+        jTextFieldLogin.setEditable(false);
+
         jLabel4.setText("Senha");
 
         jLabelID.setText("0");
