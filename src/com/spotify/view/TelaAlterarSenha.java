@@ -173,7 +173,7 @@ public class TelaAlterarSenha extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Usuario Inexistente");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Esse usuario nao existe");
+                JOptionPane.showMessageDialog(this, "Erro de conexao");
             }
         } else {
             JOptionPane.showMessageDialog(this, "As senhas nao coincidem");
