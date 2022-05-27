@@ -12,7 +12,6 @@ import jaco.mp3.player.MP3Player;
 
 import java.io.File;
 
-
 public class PlayMP3 extends Thread {
 
     public static boolean tocando = false;
@@ -52,7 +51,7 @@ public class PlayMP3 extends Thread {
     }
 
     public void next() {
-        System.out.println(mp3Player.getPlayList().get(0));
+
         mp3Player.skipForward();
 
     }

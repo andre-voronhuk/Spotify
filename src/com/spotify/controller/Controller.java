@@ -18,10 +18,8 @@ import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.MultimediaInfo;
 import java.io.File;
 import java.util.List;
-import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import spotify_teste.TesteConexao;
 
 /**
@@ -40,7 +38,6 @@ public class Controller {
     JFrame nova;
     JFrame telaAtual;
     Usuario user = new Usuario();
-    private long inicioMusica;
 
     public void main() {
         boolean con = new TesteConexao().testar(null);
@@ -234,6 +231,18 @@ public class Controller {
 
     public List<Musica> buscarMusicasNome(String buscaStr) {
         return new MusicaDAO().buscarMusicasNome(buscaStr);
+    }
+
+    public boolean removerMusicaPlaylist(String nomeMusica, String playlistNome) {
+        Musica musica = buscarMusica(nomeMusica);
+        
+        Playlist playlist = new PlaylistDAO().buscarPlaylist(
+                playlistNome,
+                this.user.getId()
+        );
+
+        return new PlaylistDAO().removerMusica(playlist, musica);
+
     }
 
 }

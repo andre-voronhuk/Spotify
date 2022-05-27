@@ -39,17 +39,20 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
         for (Usuario usuario : usuarios) {
 
-            Object[] dados = new Object[]{
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getLogin(),
-                "********",
-                usuario.getFuncao(),};
+            if (usuario.getId() != 1) {
 
-            modelo.addRow(dados);
+                Object[] dados = new Object[]{
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getLogin(),
+                    "********",
+                    usuario.getFuncao(),};
+
+                modelo.addRow(dados);
+            }
+
+            jTableUsuarios.setModel(modelo);
         }
-
-        jTableUsuarios.setModel(modelo);
     }
 
     private void atualizarDados(int selectedRow) {
@@ -102,6 +105,8 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldLogin.setText("");
         jPasswordFieldSenha.setText("");
+        listarUsuarios();
+
     }
 
     /**
@@ -183,6 +188,7 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableUsuarios.setFocusable(false);
         jTableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableUsuariosMouseClicked(evt);
@@ -296,6 +302,7 @@ public class TelaGerenciarUsuarios extends javax.swing.JFrame {
 
     private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
         atualizarDados(jTableUsuarios.getSelectedRow());
+
     }//GEN-LAST:event_jTableUsuariosMouseClicked
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed

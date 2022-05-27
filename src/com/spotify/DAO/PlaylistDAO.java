@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author Voronhuk
@@ -81,7 +80,7 @@ public class PlaylistDAO {
             ps.setInt(1, musica.getId());
             ps.setInt(2, playlist.getId());
 
-             ps.execute();
+            ps.execute();
 
             ps.close();
 
@@ -93,7 +92,7 @@ public class PlaylistDAO {
 
     }
 
-    public void removerMusica(Playlist playlist, Musica musica) {
+    public boolean removerMusica(Playlist playlist, Musica musica) {
         //remover a linha no banco que associa a musica á playlist
         String query = "SELECT id from playlist_musica WHERE musica_id = ? AND playlist_id = ? LIMIT 1";
 
@@ -112,12 +111,15 @@ public class PlaylistDAO {
                 ps.setInt(1, dados.getInt("id"));
                 ps.execute();
                 ps.close();
+                return true;
             }
 
         } catch (Exception e) {
             System.out.println("ERRO Delete de musica em playlist: " + e);
+            return false;
 
         }
+        return false;
 
     }
 
